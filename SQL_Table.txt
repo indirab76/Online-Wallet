@@ -1,0 +1,103 @@
+SQL> select DBMS_METADATA.GET_DDL('TABLE','WALLET_USER') from DUAL;
+                                                                                
+  CREATE TABLE "SYSTEM"."WALLET_USER"                                           
+   (	"USER_ID" NUMBER(10,0) NOT NULL ENABLE,                                    
+	"AADHAAR_NO" NUMBER(19,0),                                                     
+	"LOGIN_NAME" VARCHAR2(255 CHAR),                                               
+	"USER_PASSWORD" VARCHAR2(255 CHAR),                                            
+	"PHONE_NUMBER" NUMBER(19,0),                                                   
+	"USER_NAME" VARCHAR2(255 CHAR),                                                
+	 PRIMARY KEY ("USER_ID")                                                       
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS             
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645         
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT)              
+  TABLESPACE "SYSTEM"  ENABLE                                                   
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING           
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645         
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT)              
+  TABLESPACE "SYSTEM"                                                           
+                                                                                
+                                                                                
+
+SQL> select DBMS_METADATA.GET_DDL('TABLE','WALLET_ACCOUNT') from DUAL;
+                                                                                
+  CREATE TABLE "SYSTEM"."WALLET_ACCOUNT"                                        
+   (	"ACCOUNT_ID" NUMBER(10,0) NOT NULL ENABLE,                                 
+	"ACCOUNT_BALANCE" FLOAT(126),                                                  
+	"STATUS" VARCHAR2(255 CHAR),                                                   
+	"USER_ID" NUMBER(10,0),                                                        
+	 PRIMARY KEY ("ACCOUNT_ID")                                                    
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS             
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645         
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT)              
+  TABLESPACE "SYSTEM"  ENABLE,                                                  
+	 CONSTRAINT "FKM0GMMAWOSAVFSUHN11QTD92X7" FOREIGN KEY ("USER_ID")              
+	  REFERENCES "SYSTEM"."WALLET_USER" ("USER_ID") ENABLE                         
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING           
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645         
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT)              
+  TABLESPACE "SYSTEM"                                                           
+                                                                                
+                                                                                
+
+SQL> select DBMS_METADATA.GET_DDL('TABLE','WALLET_TRANSACTION') from DUAL;
+                                                                                
+  CREATE TABLE "SYSTEM"."WALLET_TRANSACTION"                                    
+   (	"TRANSACTION_ID" NUMBER(10,0) NOT NULL ENABLE,                             
+	"AMOUNT" FLOAT(126),                                                           
+	"DATE_OF_TRANSACTION" TIMESTAMP (6),                                           
+	"RECEIVER_ID" NUMBER(10,0),                                                    
+	"SENDER_ID" NUMBER(10,0),                                                      
+	 PRIMARY KEY ("TRANSACTION_ID")                                                
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS             
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645         
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT)              
+  TABLESPACE "SYSTEM"  ENABLE                                                   
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING           
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645         
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT)              
+  TABLESPACE "SYSTEM"                                                           
+                                                                                
+                                                                                
+
+SQL> select DBMS_METADATA.GET_DDL('TABLE','WALLET_ADMIN') from DUAL;
+                                                                                
+  CREATE TABLE "SYSTEM"."WALLET_ADMIN"                                          
+   (	"ADMIN_ID" NUMBER(10,0) NOT NULL ENABLE,                                   
+	"AADHAAR_NO" NUMBER(19,0),                                                     
+	"ADMIN_NAME" VARCHAR2(255 CHAR),                                               
+	"LOGIN_NAME" VARCHAR2(255 CHAR),                                               
+	"ADMIN_PASSWORD" VARCHAR2(255 CHAR),                                           
+	"PHONE_NUMBER" NUMBER(19,0),                                                   
+	 PRIMARY KEY ("ADMIN_ID")                                                      
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS             
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645         
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT)              
+  TABLESPACE "SYSTEM"  ENABLE                                                   
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING           
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645         
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT)              
+  TABLESPACE "SYSTEM"                                                           
+                                                                                
+SQL> select DBMS_METADATA.GET_DDL('TABLE','CARD_DETAILS') from DUAL;                                                                             
+
+ CREATE TABLE "SYSTEM"."CARD_DETAILS"
+   (    "CARD_NO" NUMBER(10,0) NOT NULL ENABLE,
+        "EXPIRY_MONTH" NUMBER(10,0),
+        "EXPIRY_YEAR" NUMBER(10,0),
+        "AMOUNT_AVAILABLE" FLOAT(126),
+        "WALLET_ACCOUNT_ACCOUNT_ID" NUMBER(10,0),
+         PRIMARY KEY ("CARD_NO")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DE
+FAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE,
+         CONSTRAINT "FKHYFANTTW2VHAYR9P22W5POCNY" FOREIGN KEY ("WALLET_ACCOUNT_ACCOUNT_
+ID")
+          REFERENCES "SYSTEM"."WALLET_ACCOUNT" ("ACCOUNT_ID") ENABLE
+   ) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DE
+FAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"
