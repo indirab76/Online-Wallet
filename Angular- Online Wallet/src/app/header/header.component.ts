@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../login/authentication.service';
+import { UserAuthenticationService } from '../login/user-login/user-authentication.service';
+import { AdminAuthenticationService } from '../login/admin-login/admin-authentication.service';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +9,7 @@ import { AuthenticationService } from '../login/authentication.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor( public loginService:AuthenticationService) { }
+  constructor( public userloginService:UserAuthenticationService, public adminloginService:AdminAuthenticationService) { }
 
   ngOnInit(): void {
   }

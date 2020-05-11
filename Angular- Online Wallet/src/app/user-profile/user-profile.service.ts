@@ -11,6 +11,7 @@ export class UserProfileService {
   private updateUrl = "http://localhost:9090/wallet/updateUser";
   private deleteUrl = "http://localhost:9090/wallet/deleteUser";
   private validLoginUrl = "http://localhost:9090/wallet/validLogin";
+  
   constructor(private httpClient: HttpClient) { }
 
   searchUser(id: any): Observable<any> {
@@ -25,12 +26,13 @@ export class UserProfileService {
     return this.httpClient.put(`${this.updateUrl}/`, product);
   }
 
-  deleteUser(id: Number): Observable<any> {
-    return this.httpClient.delete(`${this.deleteUrl}/${id}`,{responseType:'text'})
+  deleteUser(id: any,account_id: any): Observable<any> {
+    return this.httpClient.delete(`${this.deleteUrl}/${id}/${account_id}`,{responseType:'text'})
   }
 
   validLogin(loginName:String, password:String):Observable<any> {
     console.log("validLogin called")
    return this.httpClient.get(`${this.validLoginUrl}/${loginName}/${password}`)
   }
+  
 }

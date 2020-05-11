@@ -1,0 +1,11 @@
+ <div class="polaroid">
+<div class="panel panel-info">
+  <div class="panel-heading"><h4>Transaction Id: {{transact.transactionId}}</h4></div>
+  <div class="panel-body">
+    <h4><strong>Rs.{{transact.amount}}</strong></h4><h5>
+    <span *ngIf = "showMsg==1"> received from </span>
+     <span *ngIf = "showMsg==2"> send to </span><strong>{{accountName}}</strong>
+     <br><h4><strong>Date :</strong></h4><span>{{transact.dateOfTransaction | date:'medium'}}</span></h5>
+  </div>
+</div>
+</div>

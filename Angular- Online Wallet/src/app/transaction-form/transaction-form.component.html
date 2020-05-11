@@ -1,0 +1,145 @@
+<div class="container"  style="margin-left: 0px;">
+    <!-- <h1 style="text-align: left;"><strong>Add Money To Wallet Page</strong> </h1>
+    <h6 style ="text-align: left;">@Co-Sponsored By #StayHome-StaySafe &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; © Copyright Indian Online-Wallet (APM Id : Webs_Info_786)</h6>
+
+    <hr>
+    <br> -->
+    <h1>Transfer Money </h1>
+    <hr>
+    <div class="jumbotron text-center" *ngIf="accountStatus == 'registered' || accountStatus == 'rejected'">
+        <p>Sorry you would not be able to access this. Your account has not been validated.</p>
+        <h1>Please Come Again Later!!</h1>
+      </div>
+    <div class="row" *ngIf="accountStatus == 'accepted'">
+
+    <form id="inputForm" class="form-group" (ngSubmit)="onSubmit()">
+      <div class="container" *ngIf="!recieverDetails">
+        <div class="row">
+          <div class="form-group">
+            <input class="form-control" type="search" name="search" (ngModelChange)="onChange($event)" [(ngModel)]="search"
+              placeholder="Start searching for a Reciever by Name">
+          </div>
+          <table class="table table-hover" *ngIf="isRecieverValid">
+            <thead>
+              <tr>
+                <th>User-Id</th>
+                <th>User Name</th>
+                <th>Phone No.</th> 
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let hero of recieverList" (click)="setClickedRow(hero)">
+                <td>{{hero.userId}}</td>
+                <td>{{hero.userName}}</td>
+                <td>{{hero.phoneNumber}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="form-group">
+            <div class="row" *ngIf="!isRecieverFound">
+              <div class="col-xs-12">
+                <br>
+                <p class="alert alert-danger" style="width: 1150px;">Reciever Not Found</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div *ngIf="!rtransaction">
+      <div class="container" *ngIf="recieverDetails">
+        <div class="form-group">
+        <div class="row">
+            <div class="reciever1">
+              <h2><strong>{{recieverDetails.userName}}</strong></h2>
+              <h3>Wallet a/c linked with {{recieverDetails.phoneNumber}}</h3>
+          </div>
+          
+    
+            <input type="number" name="amount" (ngModelChange)="onChangeBalance($event)" [(ngModel)]="transaction.amount"
+              *ngIf="isRecieverValid" required class="form-control" placeholder="Enter ₹ Amount to transfer">
+            <div class="row" *ngIf="!isBalance">
+              <div class="col-xs-12">
+                <br>
+                <p class="alert alert-danger" style="width: 420px; margin-left: 380px;">
+                  Insufficient balance</p>
+              </div>
+            </div>
+            <div class="row" *ngIf="isNegative">
+              <div class="col-xs-12">
+                <br>
+                <p class="alert alert-danger" style="width: 420px;margin-left: 380px;">
+                  Transfer Amount should be greater than zero</p>
+              </div>
+            </div>
+          </div>
+          <br>
+          <br>
+          <button (click)="addMoney()" class="btn btn-success btn-block btn-lg" *ngIf="!isBalance"><strong>Add Money
+              + ₹{{amountNeed}}</strong></button>
+    
+    
+          <button type="submit" class="btn btn-success btn-block btn-lg" *ngIf="!isInvalid"><strong>Transfer
+              fund</strong></button>
+        </div>
+      </div>
+      </div>
+    </form>
+    
+    <br>
+    <br>
+    
+    <div *ngIf="rtransaction">
+      <div class="reciept">
+            <header>
+                <h1>Transaction Reciept</h1>
+                </header>
+                <table class="rtable">
+                    <tr>
+                        <th class="rth"><span class="spa">Transaction Id </span></th>
+                        <td class="rtd"><span class="spa">{{rtransaction.transactionId}}</span></td>
+                    </tr>
+                    <tr>
+                        <th class="rth"><span class="spa">Date of transaction</span></th>
+                        <td class="rtd"><span class="spa">{{rtransaction.dateOfTransaction}}</span></td>
+                    </tr>
+                </table>
+                <table class="rtable">
+                    <thead>
+                        <tr>
+                            <th class="rth"><span class="spa">Reciever Id</span></th>
+                            <th class="rth"><span class="spa">Reciever Name</span></th>
+                            <th class="rth"><span class="spa">Sender Id</span></th>
+                            <th class="rth"><span class="spa">Sender Name</span></th>
+                <th class="rth"><span class="spa">Amount Transfered</span></th>
+                <th class="rth"><span class="spa">Closing Balance</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="rtd"><span class="spa">{{rtransaction.receiverId}}</span></td>
+                            <td class="rtd"><span class="spa">{{recieverDetails.userName}}</span></td>
+                            <td class="rtd"><span class="spa">{{rtransaction.senderId}}</span></td>
+                            <td class="rtd"><span class="spa">{{userDetails.userName}}</span></td>
+                <td class="rtd"><span data-prefix>₹</span><span>{{rtransaction.amount}}</span></td>
+                <td class="rtd"><span data-prefix>₹</span><span>{{amountAvailable -rtransaction.amount}}</span></td>
+                        </tr>
+                    </tbody>
+          </table>
+          <br>
+          <br>
+                
+            <aside>
+                <h1><span class="spa">Thanks!! for using our wallet</span></h1>
+    
+            </aside>
+        </div>
+    
+    </div>
+    <br>
+    <br>
+    <br>
+    </div>
+    </div>
+    

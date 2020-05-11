@@ -1,0 +1,13 @@
+<div class="container" style="margin-left: 0;">
+    <h3>My Transaction History</h3>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <app-transaction-item
+              *ngFor="let transactEl of (transactions|async),let i=index"
+              [transact]="transactEl"
+              [index]="i"></app-transaction-item>
+              <hr>
+        </div>
+    </div>
+</div>

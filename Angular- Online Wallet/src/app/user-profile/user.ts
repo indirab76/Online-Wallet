@@ -5,4 +5,9 @@ export class User
     phoneNumber:Number;
     aadhaarNo: Number;
     loginName: String;
+    userId:Number;
+    walletAccount:{
+        status: String;
+        accountId: number;
+    };
 }

@@ -1,0 +1,155 @@
+.container {
+    padding: 0px;
+    padding-top: 16px;
+    margin-top: 30px;
+  }
+  hr {
+    border: 1px solid #838383;
+    margin-bottom: 25px;
+  }
+  /* body {
+    background-color: #cce7e8;
+    margin-left: 200px;
+    margin-right: 200px;
+  }
+  
+  form{
+   /*  border: 6px solid #F0C67A;
+     background-color: #c2b9b0;
+    padding: 40px 0;
+    margin: 100px auto;
+    margin-left: 100px;
+    margin-right: 100px;  
+  
+    margin-top: 500px;
+    
+      overflow: hidden;
+      margin: auto;
+      background: rgba(0, 0, 0, 0);
+  }
+  .table{
+    margin-left: 20px;
+  }
+  
+  .table tr:hover td {
+    background-color: #F0C67A;
+  }
+  
+  input[type="search"] {
+    box-sizing: border-box;
+    border-radius: 30px;
+    margin-top: 60px;
+    text-align: center;
+    height: 75px;
+    width: 1150px;
+    align-self: center;
+  }
+  .reciever1{
+    border-radius: 30px;
+    overflow: hidden;
+    background-color:  #F0C67A;
+    width: 30%;
+    text-align: center;
+    align-self: center;
+    border: 6px #F0C67A;
+    font-family: 'Arial Black';
+    color: white;
+    font-size: large;
+    margin-left: 20px;
+    
+  }
+  
+  
+  
+  input[type="number"] {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    box-sizing: border-box;
+    border-radius: 30px;
+    width: 420px;
+    height: 75px;
+    align-self: center;
+  }
+  
+  .btn{
+    height: 70px;
+    width: 420px;
+    border-radius: 30px;
+    font-family: 'Arial'; 
+    overflow: hidden;
+    font-size: 30px;
+    align-self: center;
+    margin-left: 380px;
+  }
+  
+  
+  
+   Reciept CSS */
+  
+  .reciept{
+      border: 10px blue;
+      box-sizing: content-box;
+      color: inherit;
+      font-family: inherit;
+      font-size: inherit;
+      font-style: inherit;
+      font-weight: inherit;
+      line-height: inherit;
+      list-style: none;
+      margin-bottom: 100px;
+      padding: 0;
+      text-decoration: none;
+    vertical-align: top;
+    font: 16px/1 'Open Sans', sans-serif; 
+    padding: 0.5in; 
+      box-sizing: border-box; 
+       margin: 0 auto; 
+       overflow: hidden; 
+       padding: 0.5in; 
+       width: 8.5in; 
+       background: #bfbfbf;
+        border-radius: 1px; 
+        box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5);
+  }
+  
+  
+  
+  .spa { display: inline-block; }
+  
+  h1 {
+     font: bold 100% sans-serif; 
+    letter-spacing: 0.5em; 
+    text-align: center; 
+    text-transform: uppercase; 
+    background: #4ee44e;
+  }
+  
+  .rtable{
+    font-size: 75%;
+     table-layout: fixed; 
+     width: 100%; 
+     border-collapse: separate;
+      border-spacing: 2px;
+  }
+  
+  .rth{
+    border-width: 1px; 
+    padding: 0.5em; 
+    text-align: center; 
+    position: relative; 
+    border-radius: 0.25em; 
+    border-style: solid;
+    background: #cce7e8;
+  }
+  
+  .rtd{
+    border-width: 1px; 
+    padding: 0.5em; 
+    position: relative; 
+    text-align: center; 
+    border-radius: 0.25em; 
+    border-style: solid;
+    background: #cce7e8; 
+    
+  } 

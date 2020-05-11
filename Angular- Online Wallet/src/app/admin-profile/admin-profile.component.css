@@ -23,7 +23,7 @@ input[type=text]:focus, input[type=password]:focus {
 
 /* Overwrite default styles of hr */
 hr {
-  border: 1px solid #f1f1f1;
+  border: 1px solid #838383;
   margin-bottom: 25px;
 }
 
@@ -32,10 +32,10 @@ hr {
   background-color: dodgerblue;
   color: white;
   padding: 16px 20px;
-  margin: 8px 0;
+  margin: 8px 8px;
   border: none;
   cursor: pointer;
-  width: 100%;
+  width: 30%;
   opacity: 0.9;
 }
 

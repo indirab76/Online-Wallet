@@ -1,0 +1,12 @@
+<div class="container" style="margin-left: 0;">
+    <h1>My Wallet</h1>
+    <hr>
+    <div class="jumbotron text-center" *ngIf="accountStatus == 'registered' || accountStatus == 'rejected'">
+        <p>Sorry you would not be able to access this. Your account has not been validated.</p>
+        <h1>Please Come Again Later!!</h1>
+      </div>
+    <div *ngIf="accountStatus == 'accepted'">
+    <app-show-balance></app-show-balance>
+    <app-my-transactions></app-my-transactions>
+    </div>
+</div>

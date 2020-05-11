@@ -1,0 +1,23 @@
+.container {
+    padding: 0px;
+    padding-top: 16px;
+    margin-top: 30px;
+  }
+
+  hr {
+    border: 1px solid #838383;
+    margin-bottom: 25px;
+  }
+  .btn{
+    margin: 5px;
+  }
+  .table-hover tbody tr:hover td {
+    background: rgb(147, 201, 255);
+}
+.thead-dark {
+  
+    color:white;
+    background-color: rgb(37, 36, 36);
+    border-color: rgb(34, 33, 33) ;
+  
+}

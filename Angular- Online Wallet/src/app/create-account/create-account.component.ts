@@ -3,6 +3,8 @@ import { UserProfileService } from '../user-profile/user-profile.service';
 import { Router } from '@angular/router';
 import { User } from '../user-profile/user';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AdminProfileService } from '../admin-profile/admin-profile.service';
+import { Admin } from '../admin-profile/admin';
 
 @Component({
   selector: 'app-create-account',
@@ -17,24 +19,28 @@ export class CreateAccountComponent implements OnInit {
   aadhaarNo:FormControl;
   loginName:FormControl;
   password:FormControl;
+  accType:FormControl;
 
   user:User=new User();
+  admin:Admin=new Admin();
   submitted=false;
   showMsg: boolean = false;
   
-  constructor(builder:FormBuilder, private service:UserProfileService,private router:Router) {
+  constructor(builder:FormBuilder, private userservice:UserProfileService,private adminservice:AdminProfileService, private router:Router) {
     this.loginName=new FormControl("",[Validators.required]);
     this.password=new FormControl("",[Validators.required , Validators.minLength(8)]);
-    this.aadhaarNo=new FormControl("",[Validators.required, Validators.minLength(12)]);
-    this.phoneNumber=new FormControl("",[Validators.required, Validators.minLength(10)]);
+    this.aadhaarNo=new FormControl("",[Validators.required , Validators.min(200000000000), Validators.max(999999999999)]);
+    this.phoneNumber=new FormControl("",[Validators.required , Validators.min(1000000000), Validators.max(9999999999)]);
     this.userName=new FormControl("",[Validators.required]);
+    this.accType=new FormControl('user',[Validators.required]);
     
     this.registrationForm=builder.group({
       loginName:this.loginName,
       password:this.password,
       aadhaarNo:this.aadhaarNo,
       phoneNumber:this.phoneNumber,
-      userName:this.userName
+      userName:this.userName,
+      accType:this.accType
     });
   }
    
@@ -52,13 +58,15 @@ export class CreateAccountComponent implements OnInit {
   save(){
     console.log('save called')
 
-    this.user.aadhaarNo = this.aadhaarNo.value;
-    this.user.loginName = this.loginName.value;
-    this.user.password = this.password.value;
-    this.user.phoneNumber = this.phoneNumber.value;
-    this.user.userName = this.userName.value;
-    
-    this.service.addUser(this.user).subscribe(
+    if(this.accType.value == 'user'){
+
+      this.user.aadhaarNo = this.aadhaarNo.value;
+      this.user.loginName = this.loginName.value;
+      this.user.password = this.password.value;
+      this.user.phoneNumber = this.phoneNumber.value;
+      this.user.userName = this.userName.value;
+  
+    this.userservice.addUser(this.user).subscribe(
       data=>{
         this.showMsg=true
         console.log(data+" -------- "+  this.showMsg)
@@ -66,6 +74,25 @@ export class CreateAccountComponent implements OnInit {
         
     });
       this.user=new User();
+  }
+  else{
+
+    this.admin.aadhaarNo = this.aadhaarNo.value;
+    this.admin.loginName = this.loginName.value;
+    this.admin.password = this.password.value;
+    this.admin.phoneNumber = this.phoneNumber.value;
+    this.admin.adminName = this.userName.value;
+
+
+    this.adminservice.addAdmin(this.admin).subscribe(
+      data=>{
+        this.showMsg=true
+        console.log(data+" -------- "+  this.showMsg)
+        ,error=>console.log(error)
+        
+    });
+      this.admin=new Admin();
+  }
       
   }
 
