@@ -1,160 +1,230 @@
-<form [formGroup]="updateForm"(ngSubmit)="onEdit()">
+<form [formGroup]="updateForm" (ngSubmit)="onEdit()">
   <div class="container">
-    <div class="row"  *ngIf="showStatus == 2">
+    <!-- Message for Rejected Users -->
+    <div class="row" *ngIf="showStatus == 2">
       <div class="col-xs-12">
-        <br>
+        <br />
         <p class="alert alert-danger">
-            <strong>You Account Details was rejected. Please recheck your entered details!</strong> 
+          <strong
+            >You Account Details was rejected. Please recheck your entered
+            details!</strong
+          >
         </p>
       </div>
     </div>
-    <div class="row"  *ngIf="showStatus == 1">
+
+    <!-- Message for Registered Users -->
+    <div class="row" *ngIf="showStatus == 1">
       <div class="col-xs-12">
-        <br>
+        <br />
         <p class="alert alert-info">
-            <strong>Your Account Details is under Review. Thank You for using our application !</strong> 
+          <strong
+            >Your Account Details is under Review. Thank You for using our
+            application !</strong
+          >
         </p>
       </div>
     </div>
-    <div class="row"  *ngIf="showMsg">
+
+    <!-- Message for Successfull updation -->
+    <div class="row" *ngIf="showMsg">
       <div class="col-xs-12">
-        <br>
+        <br />
         <p class="alert alert-success">
-            <strong>Profile Successfully Updated!</strong> 
+          <strong>Profile Successfully Updated!</strong>
         </p>
       </div>
     </div>
-    <h1>My  Profile</h1>
-    
-    <hr>
 
+    <!-- My Profile page starts -->
+    <h1>My Profile</h1>
+    <hr />
     <div class="form-group">
+      <!-- Input for Name -->
       <label for="name">Name</label>
-      <input type="text" 
-      id="userName" 
-      name="userName"
-      placeholder="Enter Name"
-      [formControl]="userName"
-      class="form-control"
-      >
+      <input
+        type="text"
+        id="userName"
+        name="userName"
+        placeholder="Enter Name"
+        [formControl]="userName"
+        class="form-control"
+      />
     </div>
-    <div *ngIf = "!(userName.valid||userName.untouched)">
-      <div *ngIf = "userName.hasError('required')" >
-          <p class="alert alert-danger"> Name is empty!</p>
+    <div *ngIf="!(userName.valid || userName.untouched)">
+      <div *ngIf="userName.hasError('required')">
+        <p class="alert alert-danger">Name is empty!</p>
       </div>
-   </div>
+    </div>
 
+    <!-- Input for Login Name -->
     <div class="form-group">
       <label for="loginName">Login Name</label>
-      <input type="text"
-      id="loginName"
-      name="loginName"
-      placeholder="Enter Login Name"
-      [formControl]="loginName"
-      class="form-control"
-      >
+      <input
+        type="text"
+        id="loginName"
+        name="loginName"
+        placeholder="Enter Login Name"
+        [formControl]="loginName"
+        class="form-control"
+      />
     </div>
-    <div *ngIf = "!(loginName.valid||loginName.untouched)">
-      <div *ngIf = "loginName.hasError('required')" >
-          <p class="alert alert-danger">Login Name is empty!</p>
+    <div *ngIf="!(loginName.valid || loginName.untouched)">
+      <div *ngIf="loginName.hasError('required')">
+        <p class="alert alert-danger">Login Name is empty!</p>
       </div>
-   </div>
+    </div>
+
+    <!-- Input for Password -->
     <div class="form-group">
       <label for="password">Password</label>
-      <input type="text"
-      id="password"
-      name="password"
-      placeholder="Enter Password"
-      [formControl]="password"
-      class="form-control"
-      >
+      <input
+        type="text"
+        id="password"
+        name="password"
+        placeholder="Enter Password"
+        [formControl]="password"
+        class="form-control"
+      />
     </div>
-    <div *ngIf = "!(password.valid||password.untouched)">
-      <div *ngIf = "password.hasError('required')" >
-          <p class="alert alert-danger"> Password is empty!</p>
+    <div *ngIf="!(password.valid || password.untouched)">
+      <div *ngIf="password.hasError('required')">
+        <p class="alert alert-danger">Password is empty!</p>
       </div>
-      <div *ngIf = "password.hasError('minlength')">
-        <p class="alert alert-danger"> Minimum length of Password should be 8 characters!</p>
+      <div *ngIf="password.hasError('minlength')">
+        <p class="alert alert-danger">
+          Minimum length of Password should be 8 characters!
+        </p>
+      </div>
     </div>
-   </div>
+
+    <!-- Input for Aadhaar No. -->
     <div class="form-group">
       <label for="aadhaarNo">Aadhaar No.</label>
-      <input type="number"
-      id="aadhaarNo"
-      name="aadhaarNo"
-      placeholder="Enter Aadhaar No."
-      [formControl]="aadhaarNo"
-      class="form-control"
-      >
+      <input
+        type="number"
+        id="aadhaarNo"
+        name="aadhaarNo"
+        placeholder="Enter Aadhaar No."
+        [formControl]="aadhaarNo"
+        class="form-control"
+      />
     </div>
-    <div *ngIf = "!(aadhaarNo.valid||aadhaarNo.untouched)">
-      <div *ngIf = "aadhaarNo.hasError('required')" >
-          <p class="alert alert-danger"> Aadhaar Number is empty!</p>
+    <div *ngIf="!(aadhaarNo.valid || aadhaarNo.untouched)">
+      <div *ngIf="aadhaarNo.hasError('required')">
+        <p class="alert alert-danger">Aadhaar Number is empty!</p>
       </div>
-      <div *ngIf = "aadhaarNo.hasError('minlength')" >
-        <p class="alert alert-danger"> Please enter 12-digit Aadhaar Number!</p>
+      <div *ngIf="aadhaarNo.hasError('minlength')">
+        <p class="alert alert-danger">Please enter 12-digit Aadhaar Number!</p>
+      </div>
     </div>
-   </div>
+
+    <!-- Input for Phone Number -->
     <div class="form-group">
       <label for="phoneNumber">Phone Number</label>
-      <input type="number"
-      id="phoneNumber"
-      name="phoneNumber"
-      placeholder="Enter Phone Number"
-      [formControl]="phoneNumber"
-      class="form-control"
-      >
+      <input
+        type="number"
+        id="phoneNumber"
+        name="phoneNumber"
+        placeholder="Enter Phone Number"
+        [formControl]="phoneNumber"
+        class="form-control"
+      />
     </div>
-    <div *ngIf = "!(phoneNumber.valid||phoneNumber.untouched)">
-      <div *ngIf = "phoneNumber.hasError('required')" >
-          <p class="alert alert-danger"> Phone Number is empty!</p>
+    <div *ngIf="!(phoneNumber.valid || phoneNumber.untouched)">
+      <div *ngIf="phoneNumber.hasError('required')">
+        <p class="alert alert-danger">Phone Number is empty!</p>
       </div>
-      <div *ngIf = "phoneNumber.hasError('minlength')" >
-        <p class="alert alert-danger"> Please enter 10-digit Phone Number!</p>
+      <div *ngIf="phoneNumber.hasError('minlength')">
+        <p class="alert alert-danger">Please enter 10-digit Phone Number!</p>
+      </div>
     </div>
-   </div> 
-   
 
-   <button type="submit" class="registerbtn" (click)="onEdit()"  *ngIf="!editMode">Edit</button>
-   <button type="submit" class="registerbtn" data-toggle="modal" [disabled]="!updateForm.valid" data-target="#myModal_update"(click)="onUpdate()"  *ngIf="editMode">Update</button>
-   <button type="submit" class="registerbtn" (click)="onCancel()"  *ngIf="editMode">Cancel</button>
-   <button type="submit" class="registerbtn"  data-toggle="modal" data-target="#myModal_delete" (click)="onDelete()">Delete</button>
-   
+    <button
+      type="submit"
+      class="registerbtn"
+      (click)="onEdit()"
+      *ngIf="!editMode"
+    >
+      Edit
+    </button>
+    <button
+      type="submit"
+      class="registerbtn"
+      data-toggle="modal"
+      [disabled]="!updateForm.valid"
+      data-target="#myModal_update"
+      (click)="onUpdate()"
+      *ngIf="editMode"
+    >
+      Update
+    </button>
+    <button
+      type="submit"
+      class="registerbtn"
+      (click)="onCancel()"
+      *ngIf="editMode"
+    >
+      Cancel
+    </button>
+    <button
+      type="submit"
+      class="registerbtn"
+      data-toggle="modal"
+      data-target="#myModal_delete"
+      (click)="onDelete()"
+    >
+      Delete
+    </button>
+
     <!-- Modal on delete-->
-    <div class="modal fade" id="myModal_delete" role="dialog" data-keyboard="false" data-backdrop="static">
+    <div
+      class="modal fade"
+      id="myModal_delete"
+      role="dialog"
+      data-keyboard="false"
+      data-backdrop="static"
+    >
       <div class="modal-dialog">
-      
         <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" (click)="onClose()">&times;</button>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              (click)="onClose()"
+            >
+              &times;
+            </button>
             <h4 class="modal-title">Online Wallet</h4>
           </div>
           <div class="modal-body">
-            <p>Your account has successfully been deleted. Thank You for using our application!!</p>
+            <p>
+              Your account has successfully been deleted. Thank You for using
+              our application!!
+            </p>
           </div>
         </div>
-        
       </div>
     </div>
 
-     <!-- Modal on update-->
-     <div class="modal fade" id="myModal_update" role="dialog" >
+    <!-- Modal on update-->
+    <div class="modal fade" id="myModal_update" role="dialog">
       <div class="modal-dialog">
-      
         <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" >&times;</button>
+            <button type="button" class="close" data-dismiss="modal">
+              &times;
+            </button>
             <h4 class="modal-title">Online Wallet</h4>
           </div>
           <div class="modal-body">
             <p>Your account has successfully been updated!!</p>
           </div>
         </div>
-        
       </div>
     </div>
   </div>
 </form>
-   

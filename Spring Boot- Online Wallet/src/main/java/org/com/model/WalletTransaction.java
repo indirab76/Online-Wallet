@@ -14,8 +14,6 @@ import javax.persistence.Table;
 public class WalletTransaction {
 
 	@Id
-	//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq3")
-	//@SequenceGenerator(name="seq3", sequenceName = "transact_seq", initialValue=3000)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="TransactionId")
 	private int TransactionId;

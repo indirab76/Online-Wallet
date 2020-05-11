@@ -2,9 +2,12 @@
 	package org.com.controller;
 
 	import java.util.List;
-	import org.com.error.RecordNotFoundException;
+import java.util.Optional;
+
+import org.com.error.RecordNotFoundException;
 	import org.com.model.WalletTransaction;
-	import org.com.service.WalletCreationService;
+import org.com.service.MyWalletService;
+import org.com.service.WalletCreationService;
 	import org.springframework.beans.factory.annotation.Autowired;
 	import org.springframework.web.bind.annotation.CrossOrigin;
 	import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -20,7 +23,7 @@
 	public class ShowWalletController {
 
 		@Autowired
-		private WalletCreationService creationService;
+		private MyWalletService creationService;
 		
 		
 		@RequestMapping("/showBalance/{id}")
@@ -35,8 +38,15 @@
 		public List<WalletTransaction> showTransactions(@PathVariable("id") int uid){
 			return creationService.showTransactions(uid);
 		}
+		@RequestMapping("/getAccountId/{id}")
+		public Optional<Integer> getAccountId(@PathVariable("id") int uid){
+			return creationService.getAccountId(uid);
+		}
 		
-		
+		@RequestMapping("/getAccountName/{id}")
+		public Optional<String> getAccountName(@PathVariable("id") int uid){
+			return creationService.getAccountName(uid);
+		}
 		
 	}
 

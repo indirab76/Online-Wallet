@@ -9,10 +9,11 @@ import org.springframework.stereotype.Component;
 @Component
 public interface AdminService {
 
-	public String addAdmin( WalletAdmin walletAdmin);
-	public String updateAdmin( WalletAdmin walletAdmin);
+	public WalletAdmin addAdmin( WalletAdmin walletAdmin);
+	public WalletAdmin updateAdmin( WalletAdmin walletAdmin);
 	public List<WalletUser> showRegisteredUsers();
 	public String removeAdminById( int aid);
 	public WalletAdmin showAdminById(int uid);
-	public String updateUser(WalletUser walletUser);
+	public WalletAdmin validLogin(String loginName, String password);
+	public int updateStatus(String status, int user_id);
 }

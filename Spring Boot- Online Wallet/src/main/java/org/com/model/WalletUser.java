@@ -15,8 +15,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class WalletUser {
 
 	@Id
-	//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq1")
-	//@SequenceGenerator(name="seq1", sequenceName = "user_seq", initialValue=1000)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="UserId")
 	private int UserId;

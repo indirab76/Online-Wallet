@@ -24,6 +24,7 @@ public class TransactionService {
 	@Autowired
 	WalletAccountDao adao;
 
+	// Add Transaction
 	public boolean addTransaction(WalletTransaction wt) {
 		Optional<WalletTransaction> find = tdao.findById(wt.getTransactionId());
 		if (!find.isPresent()) {
@@ -32,50 +33,68 @@ public class TransactionService {
 		} else
 			return false;
 	}
-	
+
+	// Update Balance on Receiver side
 	public boolean updateBalanceAtRecieverEnd(WalletTransaction wt) {
 		Optional<WalletAccount> account = adao.findById(wt.getReceiverId());
-		 if(account.isPresent()) {
-			 WalletAccount wa = account.get();
-			 wa.setAccountBalance(wa.getAccountBalance()+wt.getAmount());
-			 adao.save(wa);
-			 return true;
-		 }else
-		return false;
+		if (account.isPresent()) {
+			WalletAccount wa = account.get();
+			wa.setAccountBalance(wa.getAccountBalance() + wt.getAmount());
+			adao.save(wa);
+			return true;
+		} else
+			return false;
 	}
-	
+
+	// Update Balance at Sender side
 	public boolean updateBalanceAtSenderEnd(WalletTransaction wt) {
 		Optional<WalletAccount> account = adao.findById(wt.getSenderId());
-		 if(account.isPresent()) {
-			 WalletAccount wa = account.get();
-			 wa.setAccountBalance(wa.getAccountBalance()-wt.getAmount());
-			 adao.save(wa);
-			 return true;
-		 }else
-		return false;
+		if (account.isPresent()) {
+			WalletAccount wa = account.get();
+			wa.setAccountBalance(wa.getAccountBalance() - wt.getAmount());
+			adao.save(wa);
+			return true;
+		} else
+			return false;
 	}
-	
-	public List<WalletTransaction> showAllTransactions(){
+
+	// Show All Transactions
+	public List<WalletTransaction> showAllTransactions() {
 		return tdao.findAll();
 	}
-	
-	public List<String> SerachByname(String name){
+
+	// Search Users By Name
+	public List<WalletUser> SerachByname(String name, int id) {
+
 		name = name.toLowerCase();
-		List<String> namelist = new ArrayList<>();
-		//HashMap<Integer,String> hash = new HashMap<>();
 		List<WalletUser> list = udao.findByName(name);
-		for(WalletUser user:list) {
-			String str = user.getUserName()+" (" +user.getWalletAccount().getAccountId()+")";
-			//hash.put(user.getWalletAccount().getAccountId(), user.getUserName());
-			namelist.add(str);
+		List<WalletUser> listname = new ArrayList<>();
+		Optional<WalletUser> user2 = udao.findById(id);
+		for (WalletUser user : list) {
+			if (user.getUserName() == user2.get().getUserName() && user.getUserId() == user2.get().getUserId())
+				;
+			else {
+				user.setPassword("");
+				listname.add(user);
+			}
 		}
-		return namelist;
+		return listname;
 	}
-	
+
+	// Get Balance by UserId
 	public double getBalance(int id) {
 		Optional<WalletUser> user = udao.findById(id);
 		return user.get().getWalletAccount().getAccountBalance();
 	}
-	
-	
+
+	// Get Wallet User By Id
+	public WalletUser getWalletUser(int userid) {
+		Optional<WalletUser> user = udao.findById(userid);
+		if (user.isPresent()) {
+			user.get().setPassword("");
+			return user.get();
+		} else
+			return null;
+	}
+
 }

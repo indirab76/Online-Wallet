@@ -26,15 +26,12 @@ console.log("card is searching")
 
 
   getCardDetails_1(): Observable<any> {
-
     return this.http.get(`${this.baseUrl_1}`);
   }
 
   addMoneyToWallet(userId :any , amount:Number , cardNo:Number): Observable<any> {
 
     console.log("adding money to wallet")
-  // return this.http.put(`${this.baseUrl_2}/${userId}/${amountenter}/${cardNo}`)
-
    return this.http.put(`${this.baseUrl_2}/${userId}/${amount}/${cardNo}`,{responseType: 'any'});
 
   }

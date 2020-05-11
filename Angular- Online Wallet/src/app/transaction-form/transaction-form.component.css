@@ -7,6 +7,40 @@
     border: 1px solid #838383;
     margin-bottom: 25px;
   }
+  div.polaroid {
+   
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    
+  }
+  .registerbtn {
+    background-color: dodgerblue;
+    color: white;
+    padding: 16px 20px;
+    margin: 8px 8px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.7;
+  }
+  td{
+    cursor: pointer;
+  }
+  .table-hover tbody tr:hover td {
+    background: rgb(176, 216, 255);
+}
+  .registerbtn:hover {
+    opacity:1;
+  }
+ input{
+   outline-color: rgb(55, 155, 255);
+ }
+.thead-dark {
+  
+    color:white;
+    background-color: rgb(37, 36, 36);
+    border-color: rgb(34, 33, 33) ;
+  
+}
   /* body {
     background-color: #cce7e8;
     margin-left: 200px;
@@ -85,7 +119,7 @@
   
   
   
-   Reciept CSS */
+   Reciept CSS 
   
   .reciept{
       border: 10px blue;
@@ -113,17 +147,17 @@
         box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5);
   }
   
-  
+  */
   
   .spa { display: inline-block; }
   
-  h1 {
+  /* h1 {
      font: bold 100% sans-serif; 
     letter-spacing: 0.5em; 
     text-align: center; 
     text-transform: uppercase; 
     background: #4ee44e;
-  }
+  } */
   
   .rtable{
     font-size: 75%;

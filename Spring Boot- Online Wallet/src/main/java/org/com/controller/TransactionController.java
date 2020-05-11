@@ -36,13 +36,8 @@ public class TransactionController {
 	public List<WalletUser> showUser() {
 		return dao.findAll();
 	}
-	
-	@RequestMapping("/all")
-	public String show(@RequestParam(value="id") int id,@RequestParam("name") String name) {
-		return name+id;
-	}
-	
 
+	// Add Transaction
 	@PostMapping("/addTransaction")
 	@ExceptionHandler(TransactionException.class)
 	public ResponseEntity<?> addTransaction(@RequestBody WalletTransaction wt) {
@@ -53,37 +48,45 @@ public class TransactionController {
 				else
 					throw new TransactionException("Transaction is not added in database....");
 			} else
-				
+
 				throw new TransactionException("Amount is not added at sender end or reciever end....");
 		} catch (TransactionException e) {
 			return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
+	// Get All Transactions
 	@RequestMapping("/allTransaction")
 	@ExceptionHandler(RecordNotFoundException.class)
 	public ResponseEntity<?> showTransaction() {
-		try{
-			if(service.showAllTransactions().isEmpty())
+		try {
+			if (service.showAllTransactions().isEmpty())
 				throw new RecordNotFoundException("There is no Transaction Record!!");
 			else
-	         	return new ResponseEntity(service.showAllTransactions(), HttpStatus.OK);
-		}catch(RecordNotFoundException e) {
-			return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);	
+				return new ResponseEntity(service.showAllTransactions(), HttpStatus.OK);
+		} catch (RecordNotFoundException e) {
+			return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
 	}
-		
 
-	@RequestMapping("/SearchByName/{name}")
-	public ResponseEntity<?> searchByName(@PathVariable("name") String name) {
-		if(name.isEmpty())
-			name="";
-	    return new ResponseEntity(service.SerachByname(name), HttpStatus.OK);
+	// Search By User Name
+	@RequestMapping("/SearchByName/{name}/{id}")
+	public ResponseEntity<?> searchByName(@PathVariable("name") String name, @PathVariable("id") int id) {
+		if (name.isEmpty())
+			name = "";
+		return new ResponseEntity(service.SerachByname(name, id), HttpStatus.OK);
 	}
 
+	// Get Balance for User Account
 	@RequestMapping("/getBalance/{id}")
 	public ResponseEntity<?> getBalance(@PathVariable("id") int id) {
 		return new ResponseEntity(service.getBalance(id), HttpStatus.OK);
+	}
+
+	// Get WalletUser by UserId
+	@RequestMapping("/getWalletUser/{id}")
+	public ResponseEntity<?> getWalletUser(@PathVariable("id") int userid) {
+		return new ResponseEntity(service.getWalletUser(userid), HttpStatus.OK);
 	}
 
 }

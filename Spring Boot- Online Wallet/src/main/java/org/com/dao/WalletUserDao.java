@@ -22,10 +22,13 @@ public interface WalletUserDao extends JpaRepository<WalletUser, Integer>{
 	@Query( value = "select user_id from wallet_user where login_name= :login_name ", nativeQuery=true)
 	Optional<Integer> validLoginName(@Param("login_name") String login_name);
 	
-	@Query( value = "select user_id from wallet_user where login_name= :login_name and user_password= :password ", nativeQuery=true)
-	Optional<Integer> validLogin(@Param("login_name") String login_name, @Param("password") String password);
+	@Query( value = "select * from wallet_user where login_name= :login_name and user_password= :password ", nativeQuery=true)
+	Optional<WalletUser> validLogin(@Param("login_name") String login_name, @Param("password") String password);
 	
 	@Query("SELECT w FROM WalletUser w WHERE LOWER(w.UserName) LIKE %?1%")
 	  public List<WalletUser> findByName(String name);
+	
+	@Query( value = "select user_name from wallet_user where user_id = (select user_id from wallet_account where account_id = :account_id) ", nativeQuery=true)
+	Optional<String> getAccountUserId(@Param("account_id") Integer account_id);
 	
 }

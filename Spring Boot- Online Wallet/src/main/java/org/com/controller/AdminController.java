@@ -2,10 +2,13 @@ package org.com.controller;
 
 import java.util.List;
 
+import org.com.OnlineWalletSystemApplication;
 import org.com.error.RecordNotFoundException;
 import org.com.model.WalletAdmin;
 import org.com.model.WalletUser;
 import org.com.service.AdminService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,109 +30,136 @@ public class AdminController {
 
 	@Autowired
 	private AdminService adminService;
-	
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(OnlineWalletSystemApplication.class);
+
+	//Add Admin
 	@PostMapping("/addAdmin")
 	@ExceptionHandler(RecordNotFoundException.class)
-	public ResponseEntity<String> addAdmin(@RequestBody WalletAdmin walletAdmin) {
-		
-    try {
-			
-			String msg = adminService.addAdmin(walletAdmin);
-			
-			if(msg.equals("admin added"))
-				return new ResponseEntity<String>(msg, HttpStatus.OK);
-			else
+	public WalletAdmin addAdmin(@RequestBody WalletAdmin walletAdmin) {
+		WalletAdmin admin = new WalletAdmin();
+
+		try {
+			admin = adminService.addAdmin(walletAdmin);
+
+			if (admin == null)
 				throw new RecordNotFoundException("Record Not Found");
-		
-		} catch(Exception e) {
-			
-			return  new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_FOUND);
+
+		} catch (Exception e) {
+
+			LOGGER.info(e.getMessage(), HttpStatus.NOT_FOUND);
+
 		}
-		
+		return admin;
+
 	}
-	
-	@PutMapping("/updateAdmin")
-	@ExceptionHandler(RecordNotFoundException.class)
-	public ResponseEntity<String> updateAdmin(@RequestBody WalletAdmin walletAdmin) {
-		
-     try {
-			
-			String msg = adminService.updateAdmin(walletAdmin);
-			
-			if(msg.equals("admin updated"))
-				return new ResponseEntity<String>(msg, HttpStatus.OK);
-			else
-				throw new RecordNotFoundException("Record Not Found");
-		
-		} catch(Exception e) {
-			
-			return  new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_FOUND);
-		}
-		
-	}
-	
+
+	//Delete Admin
 	@DeleteMapping("/deleteAdmin/{id}")
 	@ExceptionHandler(RecordNotFoundException.class)
-	public ResponseEntity<String> removeAdminById(@PathVariable("id") int aid) {
-		
+	public String removeAdminById(@PathVariable("id") int aid) {
+		String msg = null;
+
 		try {
-			
-			String msg = adminService.removeAdminById(aid);
-			
-			if(msg.equals("admin removed"))
-				return new ResponseEntity<String>(msg, HttpStatus.OK);
-			else
+			msg = adminService.removeAdminById(aid);
+
+			if (!msg.equals("admin removed"))
 				throw new RecordNotFoundException("Record Not Found");
-		
-		} catch(Exception e) {
-			
-			return  new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_FOUND);
+
+		} catch (Exception e) {
+
+			LOGGER.info(e.getMessage(), HttpStatus.NOT_FOUND);
+
 		}
-		
+		return msg;
 	}
-	
+
+	//Update Admin
+	@PutMapping("/updateAdmin")
+	@ExceptionHandler(RecordNotFoundException.class)
+	public WalletAdmin updateAdmin(@RequestBody WalletAdmin walletAdmin) {
+		WalletAdmin admin = new WalletAdmin();
+
+		try {
+			admin = adminService.updateAdmin(walletAdmin);
+
+			if (admin == null)
+				throw new RecordNotFoundException("Record Not Found");
+
+		} catch (Exception e) {
+
+			LOGGER.info(e.getMessage(), HttpStatus.NOT_FOUND);
+
+		}
+		return admin;
+	}
+
+	//Show Admin By Id
 	@RequestMapping("/showAdmin/{id}")
 	@ExceptionHandler(RecordNotFoundException.class)
-	public ResponseEntity<?> showAdminById(@PathVariable("id") int aid) {
-		
+	public WalletAdmin showAdminById(@PathVariable("id") int aid) {
+		WalletAdmin admin = new WalletAdmin();
+
 		try {
-			
-			WalletAdmin admin = adminService.showAdminById(aid);
-			
-		if(admin==null)
-			throw new RecordNotFoundException("Record Not Found");
-		else
-			return new ResponseEntity<WalletAdmin>(admin, HttpStatus.OK);
-		}
-		catch(Exception e) {
-			
-		     return  new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_FOUND);
-		}
-	}
-	
-	@PutMapping("/updateUser")
-	@ExceptionHandler(RecordNotFoundException.class)
-	public ResponseEntity<String> updateUser(@RequestBody WalletUser walletUser) {
-		
-     try {
-			
-			String msg = adminService.updateUser(walletUser);
-			
-			if(msg.equals("user updated"))
-				return new ResponseEntity<String>(msg, HttpStatus.OK);
-			else
+			admin = adminService.showAdminById(aid);
+
+			if (admin == null)
 				throw new RecordNotFoundException("Record Not Found");
-		
-		} catch(Exception e) {
-			
-			return  new ResponseEntity<String>(e.getMessage(), HttpStatus.NOT_FOUND);
+
+		} catch (Exception e) {
+
+			LOGGER.info(e.getMessage(), HttpStatus.NOT_FOUND);
+
 		}
-		
+		return admin;
 	}
-	
+
+	//Validate Admin Login
+	@RequestMapping("/validLogin/{loginName}/{password}")
+	@ExceptionHandler(RecordNotFoundException.class)
+	public WalletAdmin validLoginName(@PathVariable("loginName") String loginName,
+			@PathVariable("password") String password) {
+		WalletAdmin admin = new WalletAdmin();
+
+		try {
+			admin = adminService.validLogin(loginName, password);
+
+			if (admin == null)
+				throw new RecordNotFoundException("Record Not Found");
+
+		} catch (Exception e) {
+
+			LOGGER.info(e.getMessage(), HttpStatus.NOT_FOUND);
+
+		}
+		return admin;
+	}
+
+	//Update Admin Status
+	@PutMapping("/updateStatus/{id}/{status}")
+	@ExceptionHandler(RecordNotFoundException.class)
+	public int updateStatus(@PathVariable("id") int user_id, @PathVariable("status") String status) {
+
+		int n = 0;
+
+		try {
+			n = adminService.updateStatus(status, user_id);
+
+			if (n == 0)
+				throw new RecordNotFoundException("Record Not Found");
+
+		} catch (Exception e) {
+
+			LOGGER.info(e.getMessage(), HttpStatus.NOT_FOUND);
+
+		}
+		return n;
+
+	}
+
+	//Show All Registered Users
 	@RequestMapping("/showRegisteredUsers")
-	public List<WalletUser> showRegisteredUsers(){
+	public List<WalletUser> showRegisteredUsers() {
 		return adminService.showRegisteredUsers();
 	}
 }
-

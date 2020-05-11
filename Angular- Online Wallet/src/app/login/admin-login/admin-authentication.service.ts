@@ -27,11 +27,9 @@ export class AdminAuthenticationService {
 
   isAdminLoggedIn() {
     if( sessionStorage.getItem('adminId') == 'null'){
-     // console.log('false')
     return false
   }
     else{
-     // console.log('true')
     return true
   }
     
@@ -39,6 +37,6 @@ export class AdminAuthenticationService {
 
   logOut() {
     sessionStorage.setItem('adminId', 'null')
-      sessionStorage.setItem('type', 'null')
+    sessionStorage.setItem('type', 'null')
   }
 }

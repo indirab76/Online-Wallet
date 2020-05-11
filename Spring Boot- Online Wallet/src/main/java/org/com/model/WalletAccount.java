@@ -18,8 +18,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 public class WalletAccount {
 
 	@Id
-	//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq2")
-	//@SequenceGenerator(name="seq2", sequenceName = "wallet_seq", initialValue=2000)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="AccountId")
 	private int AccountId;

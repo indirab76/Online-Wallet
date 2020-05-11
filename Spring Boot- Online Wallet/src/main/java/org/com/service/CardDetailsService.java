@@ -7,45 +7,38 @@ import org.com.model.CardDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 @Service
 public class CardDetailsService {
 
 	@Autowired
 	CardDetailsDao dao;
-	
+
 	CardDetails card;
-	
-	public void addCard(CardDetails card)
-	{
+
+	// Add a card to database
+	public void addCard(CardDetails card) {
 		dao.save(card);
 	}
-	
+
+	// Search Card Details
 	public CardDetails searchCard(int cardno) {
-		
+
 		Optional<CardDetails> find = dao.findById(cardno);
 		System.out.println("finding card --- ");
-		
-		if (find.isPresent())
-		{
-		System.out.println("CardNo is found ");
-		
-		 card = find.get();
-		
+
+		if (find.isPresent()) {
+			System.out.println("CardNo is found ");
+			card = find.get();
 			return card;
-		}
-		else
-		{
+		} else {
 			System.out.println("1. CardNo is not found in database ");
 			return null;
 		}
-		
-		
 	}
-	
-	public void showAllCard() 
-	{
+
+	// Show All Card Details
+	public void showAllCard() {
 		dao.findAll().forEach(System.out::println);
 	}
-	
+
 }

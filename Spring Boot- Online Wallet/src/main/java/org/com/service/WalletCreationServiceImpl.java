@@ -28,6 +28,7 @@ public class WalletCreationServiceImpl implements WalletCreationService{
 	WalletUser user;
 	WalletAccount account;
 	
+	//Add new User
     public WalletUser addUser( WalletUser walletUser) {
 		
 		Optional <WalletUser> findById = userDao.findByAadhaarNo(walletUser.getAadhaarNo());
@@ -45,11 +46,13 @@ public class WalletCreationServiceImpl implements WalletCreationService{
 		return null;
 	}
     
-   public String removeUserById( int uid) {
+    //Remove User By Id
+   public String removeUserById( int uid, int account_id) {
 		
-		Optional <WalletUser> findById = userDao.findById(uid);
-		if(findById.isPresent())
-		{
+		Optional <WalletUser> findUser = userDao.findById(uid);
+		Optional<WalletAccount> findAccount = accountDao.findById(account_id);
+		if(findUser.isPresent() && findAccount.isPresent())
+		{   accountDao.deleteById(account_id);
 			userDao.deleteById(uid);
 			return "user removed";
 		}
@@ -57,17 +60,19 @@ public class WalletCreationServiceImpl implements WalletCreationService{
 		
 	}
    
-   public String updateUser( WalletUser walletUser) {
+   //Update User By Id
+   public WalletUser updateUser( WalletUser walletUser) {
 		
 		Optional <WalletUser> findById = userDao.findById(walletUser.getUserId());
 		if(findById.isPresent())
 		{
-			userDao.save(walletUser);
-			return "user updated";
+			WalletUser user = userDao.save(walletUser);
+			return user;
 		}
-		return "user not present";
+		return null;
 	}
 	
+   //Show User By Id
 	public WalletUser showUserById(int uid) {
 		
 		Optional <WalletUser> findById = userDao.findById(uid);
@@ -80,6 +85,7 @@ public class WalletCreationServiceImpl implements WalletCreationService{
 		
 	}
 	
+	//Check if the entered loginname already exists in the database
      public boolean validLoginName(String loginName) {
 		
 		Optional<Integer> findById = userDao.validLoginName(loginName);
@@ -91,27 +97,29 @@ public class WalletCreationServiceImpl implements WalletCreationService{
 		return true;
 		
 	}
-     
-     public Integer validLogin(String loginName, String password) {
+    
+     //Validate login for a user
+     public WalletUser validLogin(String loginName, String password) {
  		
- 		Optional<Integer> findById = userDao.validLogin(loginName, password);
+ 		Optional<WalletUser> findById = userDao.validLogin(loginName, password);
  		if(findById.isPresent())
  		{
- 			Integer id = findById.get();
- 			return id;
+ 			WalletUser user = findById.get();
+ 			return user;
  		}
  		return null;
  		
  	}
-	public double showBalance(int uid) {
-	
-			return accountDao.getAccountBalance(uid);
-		
+
+	// Get all users
+	public List<WalletUser> showAllUsers(){
+		return userDao.findAll();
 	}
 	
-	public List<WalletTransaction> showTransactions(int uid){
-		
-		return transactDao.getTransaction(uid);
+	//Get AccountId from User Id
+	public Optional<Integer> getAccountId(int uid){
+		return accountDao.getAccountId(uid);
 	}
+
 	
 }

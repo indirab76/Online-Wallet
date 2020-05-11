@@ -30,12 +30,7 @@ public class CardDetails {
 	private double amountAvailable;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-
-	//@JoinColumn(name = "AccountId")
-	//   @JsonManagedReference
-
-	   private WalletAccount walletAccount;
-
+	
 	@Override
 	public String toString() {
 		return "CardDetails [CardNo=" + CardNo + ", ExpiryMonth=" + ExpiryMonth + "/ExpiryYear=" + ExpiryYear
@@ -74,13 +69,6 @@ public class CardDetails {
 		this.amountAvailable = amountAvailable;
 	}
 
-	public WalletAccount getWalletAccount() {
-		return walletAccount;
-	}
-
-	public void setWalletAccount(WalletAccount walletAccount) {
-		this.walletAccount = walletAccount;
-	}
 	
 	
 }

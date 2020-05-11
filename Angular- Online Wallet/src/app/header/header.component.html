@@ -5,6 +5,7 @@
       </div>
      
        <ul class="nav navbar-nav">
+         
         <li routerLinkActive="active" routerLinkActiveOptions="{exact:true}"><a *ngIf="userloginService.isUserLoggedIn()" routerLink="/userprofile" class="nav-link">My Profile</a></li>
         <li routerLinkActive="active" routerLinkActiveOptions="{exact:true}"><a *ngIf="userloginService.isUserLoggedIn()" routerLink="/mywallet" class="nav-link">My Wallet</a></li>
         <li routerLinkActive="active" routerLinkActiveOptions="{exact:true}"><a *ngIf="userloginService.isUserLoggedIn()" routerLink="/addmoney" class="nav-link">Add Money</a></li>

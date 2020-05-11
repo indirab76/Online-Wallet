@@ -12,7 +12,7 @@ import { Admin } from './admin';
 })
 export class AdminProfileComponent implements OnInit {
 
-  admin:Admin=new Admin();
+ admin:Admin=new Admin();
  editMode:boolean=false;
  showMsg:boolean=false;
  deleteMsg:any;
@@ -48,6 +48,7 @@ export class AdminProfileComponent implements OnInit {
   ngOnInit(): void {
     this.onReloadData();
   }
+  
   onReloadData(){
     (async () => { 
     this.service.searchAdmin(sessionStorage.getItem('adminId')).subscribe(

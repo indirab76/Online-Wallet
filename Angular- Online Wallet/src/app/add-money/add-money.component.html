@@ -1,10 +1,5 @@
 <div class="container"  style="margin-left: 0px;">
-    <!-- <h1 style="text-align: left;"><strong>Add Money To Wallet Page</strong> </h1>
-    <h6 style ="text-align: left;">@Co-Sponsored By #StayHome-StaySafe &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; © Copyright Indian Online-Wallet (APM Id : Webs_Info_786)</h6>
 
-    <hr>
-    <br> -->
     <h1>Add Money To Wallet</h1>
     <hr>
     <div class="jumbotron text-center" *ngIf="accountStatus == 'registered' || accountStatus == 'rejected'">
@@ -12,7 +7,8 @@
         <h1>Please Come Again Later!!</h1>
       </div>
     <div class="row" *ngIf="accountStatus == 'accepted'">
-     
+       
+        <!-- Validate Credit Card Details -->
         <form (ngSubmit)="checkCard()">
 
             <div class="container" style="width: 70%;">
@@ -22,37 +18,13 @@
                     id="cardNo" required minlength="4" required maxlength="6" class="form-control" required
                     [(ngModel)]="cardsearch.cardNo" required digitOnly>
 
-                <!-- <div row *ngIf="!isEmpty">
-                    <div class="col-xs-12" style="color:red"></div>
-                    <p class="alert alert-danger">Card Number is empty! Please enter cardNo</p>
-                </div>  -->
-
                 <div row *ngIf="!isValidCard">
                     <div class="col-xs-12" style="color:red"></div>
                     <p class="alert alert-danger"><strong>Card No. may be null or negative!<br>Please enter valid Card No.</strong></p>
                 </div>
-
-            
-
             <br>
-
             <button class="cardCheckerCss" type="submit" [disabled]="!cardStatus"><strong>Proceed with Card No.</strong> </button>
            
-            <!-- <div [hidden]="!monthCheck" style="width: 35%;">
-                <label for="expiryMonth"><b>Enter Momth</b></label>
-                <input type="text" placeholder="Exp. Month MM" name="expiryMonth" (ngModelChange)="onChangeMonth($event)"
-                    id="expiryMonth" required minlength="1" required maxlength="2" required min="1" required max="12" class="form-control" required
-                    [(ngModel)]="cardsearch.expiryMonth" required digitOnly>
-            </div>
-            <div [hidden]="!yearCheck" style="width: 35%;">
-  
-                <label for="expiryYear"><b>Enter Year</b></label>
-                <input type="text" placeholder="Exp. Yr. YYYY" name="expiryYear" (ngModelChange)="onChangeYear($event)"
-                    id="expiryYear" required minlength="4" required maxlength="4" required min="2020" class="form-control" required
-                    [(ngModel)]="cardsearch.expiryYear" required digitOnly>
-            </div> -->
-
-
             <div class="row" *ngIf="!isCardCheck">
                 <div class="col-xs-12">
                     <br>
@@ -65,7 +37,7 @@
 
             </div>
 
-
+            <!-- Add amount to wallet -->
             <div [hidden]="!amountStatus" class="container" style="width: 70%;">
 
                 <label for="amount"><b>Amount To Be Enter</b></label>
@@ -73,11 +45,6 @@
                     (ngModelChange)="onChangeAmount($event)" required min="1" required minlength="1" required
                     maxlength="6" class="form-control" required [(ngModel)]="cardsearch.amount" required digitOnly>
 
-                <!-- <div *ngIf="!isAmountEmpty">
-                    <div class="col-xs-12" style="color:red">
-                        <p class="alert alert-danger">Amount is empty! Please enter amount</p>
-                    </div>
-                </div> -->
                 <div *ngIf="!isValidAmount">
                     <div class="col-xs-12" style="color:red">
                         <p class="alert alert-danger"><strong>Amount may be null or negative! Please enter valid amount</strong></p>
@@ -89,7 +56,7 @@
                 <button class="addMoneyCss"  [disabled]="!isAmountProceed" (click)="onAdd()"><strong>Add Money to Wallet</strong></button>
 
                 <div *ngIf = "!isAddDone">
-                    <p class="alert alert-danger"> <strong>Congratulation!</strong>Balance is successfully added to your account</p>
+                    <p class="alert alert-success"> <strong>Congratulation!</strong>Balance is successfully added to your account</p>
                 </div>
 
                 <div *ngIf = "!isNotAdd">
