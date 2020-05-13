@@ -12,6 +12,7 @@ export class AddMoneyComponent implements OnInit {
   //Session user_id
   userId = sessionStorage.getItem("userId");
   accountStatus = sessionStorage.getItem("userStatus");
+
   cardNo: number;
   amount: number;
 
@@ -20,6 +21,11 @@ export class AddMoneyComponent implements OnInit {
   isValidCard = true;
   cardStatus = false;
   isCardCheck = true;
+
+  //........//
+  //month year check
+  isValidMonth = true;
+  isValidYear = true;
 
   //Amount Validation
   isAmountEmpty = true;
@@ -31,9 +37,11 @@ export class AddMoneyComponent implements OnInit {
   isNotAdd = true;
 
   cardsearch: CardDetails;
+
   carddetails_1 = true;
+
   support = false;
-  support_2 = false;
+
   amountStatus = false;
 
   ngOnInit(): void {
@@ -45,37 +53,91 @@ export class AddMoneyComponent implements OnInit {
     this.service.cardSearch(this.cardsearch.cardNo).subscribe(
       (data) => {
         if (data != null) {
-          this.cardsearch = data;
+          // this.cardsearch = data;
+
+          console.log("Card Details ::-- ");
+
+          console.log(data.cardNo);
+          console.log(data.amount);
+          console.log(data.expiryMonth);
+          console.log(data.expiryYear);
+          console.log("if else condi.");
+
+          //........//
+          if (
+            data.expiryMonth == this.cardsearch.expiryMonth &&
+            data.expiryYear == this.cardsearch.expiryYear
+          ) {
+            this.cardStatus = this.isCardCheck = true;
+
+            this.amountStatus = true;
+
+            this.isAddDone = true;
+
+            this.isNotAdd = true;
+
+            console.log("month and year checking done ");
+          }
+
+          //........//
+          if (
+            data.expiryMonth != this.cardsearch.expiryMonth ||
+            data.expiryYear != this.cardsearch.expiryYear
+          ) {
+            this.cardStatus = false;
+
+            this.isCardCheck = false;
+
+            this.amountStatus = false;
+
+            this.isAddDone = true;
+
+            this.isNotAdd = true;
+
+            console.log("month and year checking not getting done ");
+          }
+
           console.log(data);
-          this.isCardCheck = true;
-          this.amountStatus = true;
-          this.isAddDone = true;
-          this.isNotAdd = true;
+
+          //   this.isCardCheck = true;
+
+          //   this.amountStatus = true;
+
+          //   this.isAddDone = true;
+          // this.isNotAdd = true;
 
           console.log("data is comming");
         }
 
         if (data == null) {
           console.log(data);
+
           this.cardStatus = false;
+
           this.isCardCheck = false;
+
           this.amountStatus = false;
+
           this.isAddDone = true;
           this.isNotAdd = true;
 
           console.log(" data null is comming ");
         }
 
-        
+        //  alertService.success('Card found!');
       },
       (error) => {
         this.cardStatus = false;
+
         this.isCardCheck = false;
+
         this.amountStatus = false;
+
         this.isAddDone = true;
         this.isNotAdd = true;
 
         console.log(error);
+
         console.log(" error is comming ");
       }
     );
@@ -95,26 +157,22 @@ export class AddMoneyComponent implements OnInit {
           if (data != null) {
             this.isAddDone = false;
             this.isNotAdd = true;
-
             console.log(" balance is going on ");
-
             console.log(data);
           }
 
           if (data == null) {
             this.isAddDone = true;
             this.isNotAdd = false;
-
             console.log(" balance is not going on ");
             console.log(data);
           }
         },
+
         (error) => {
           this.isAddDone = true;
           this.isNotAdd = false;
-
           console.log(" balance is not going on with error coming ");
-
           console.log(error);
         }
       );
@@ -135,14 +193,15 @@ export class AddMoneyComponent implements OnInit {
       this.isEmpty = false;
       this.isValidCard = true;
       this.cardStatus = false;
+      this.amountStatus = false;
     } else if (event <= 0) {
       this.isEmpty = true;
       this.isValidCard = false;
       this.cardStatus = false;
+      this.amountStatus = false;
     } else {
       this.isEmpty = true;
       this.isValidCard = true;
-      this.cardStatus = true;
     }
   }
 
@@ -161,6 +220,40 @@ export class AddMoneyComponent implements OnInit {
       this.isAmountEmpty = true;
       this.isValidAmount = true;
       this.isAmountProceed = true;
+    }
+  }
+
+  //........//
+  public onChangeMonth(event: any): void {
+    console.log(event);
+
+    if (event == null || event.length == 0) {
+      this.cardStatus = false;
+    } else if (event <= 0) {
+      this.isValidMonth = false;
+      this.cardStatus = false;
+      this.amountStatus = false;
+    } else {
+      this.isValidMonth = true;
+      this.cardStatus = true;
+      this.amountStatus = false;
+    }
+  }
+
+  //........//
+  public onChangeYear(event: any): void {
+    console.log(event);
+
+    if (event == null || event.length == 0) {
+      this.cardStatus = false;
+    } else if (event <= 0) {
+      this.isValidYear = false;
+      this.cardStatus = false;
+      this.amountStatus = false;
+    } else {
+      this.isValidYear = true;
+      this.cardStatus = true;
+      this.amountStatus = false;
     }
   }
 }

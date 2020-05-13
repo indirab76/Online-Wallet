@@ -12,6 +12,7 @@ public interface AdminService {
 	public WalletAdmin addAdmin( WalletAdmin walletAdmin);
 	public WalletAdmin updateAdmin( WalletAdmin walletAdmin);
 	public List<WalletUser> showRegisteredUsers();
+	public List<WalletUser> showAcceptedUsers();
 	public String removeAdminById( int aid);
 	public WalletAdmin showAdminById(int uid);
 	public WalletAdmin validLogin(String loginName, String password);

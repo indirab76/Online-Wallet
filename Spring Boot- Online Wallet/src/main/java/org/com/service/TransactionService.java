@@ -63,22 +63,32 @@ public class TransactionService {
 		return tdao.findAll();
 	}
 
-	// Search Users By Name
-	public List<WalletUser> SerachByname(String name, int id) {
-
-		name = name.toLowerCase();
-		List<WalletUser> list = udao.findByName(name);
-		List<WalletUser> listname = new ArrayList<>();
+	// Search Users By Name or Phone Number
+	public List<WalletUser> SerachByNameOrPhoneNo(String key, int id) {
+		key = key.toLowerCase();
+		List<WalletUser> listname = udao.findByName(key);
+		List<WalletUser> list = new ArrayList<>();
 		Optional<WalletUser> user2 = udao.findById(id);
-		for (WalletUser user : list) {
-			if (user.getUserName() == user2.get().getUserName() && user.getUserId() == user2.get().getUserId())
-				;
-			else {
+		for(WalletUser user :listname ) {
+			if(user.getUserName()==user2.get().getUserName()&& user.getUserId()==user2.get().getUserId());
+			else
+			{
 				user.setPassword("");
-				listname.add(user);
+				list.add(user);
 			}
 		}
-		return listname;
+		if(!list.isEmpty());
+		else {
+			List<WalletUser> listall = udao.findAll();
+			for(WalletUser user : listall) {
+				user.setPassword("");
+				String str = new Long(user.getPhoneNumber()).toString();
+				if(str.contains(key)&& user.getUserId()!=user2.get().getUserId())
+					list.add(user);
+			}
+		}
+		
+		return list;
 	}
 
 	// Get Balance by UserId

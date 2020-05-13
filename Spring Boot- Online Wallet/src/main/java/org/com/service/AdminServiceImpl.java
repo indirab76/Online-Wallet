@@ -37,6 +37,11 @@ public class AdminServiceImpl implements AdminService {
 	public List<WalletUser> showRegisteredUsers() {
 		return userDao.getRegisteredAccounts();
 	}
+	
+	// Show All Accepted Users Function
+		public List<WalletUser> showAcceptedUsers() {
+			return userDao.getAcceptedAccounts();
+		}
 
 	// Remove By Id
 	public String removeAdminById(int aid) {

@@ -12,77 +12,77 @@ public class WalletAdmin {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="AdminId")
-	private int AdminId;
+	private int adminId;
 	
 	@Column(name="AdminName")
-	private String AdminName;
+	private String adminName;
 	
 	@Column(name="AdminPassword")
-	private String Password;
+	private String password;
 	
 	@Column(name="AadhaarNo")
-	private long AadhaarNo;
+	private long aadhaarNo;
 	
 	@Column(name="PhoneNumber")
-	private long PhoneNumber;
+	private long phoneNumber;
 	
 	@Column(name="LoginName")
-	private String LoginName;
+	private String loginName;
 
 	public int getAdminId() {
-		return AdminId;
+		return adminId;
 	}
 
 	public void setAdminId(int adminId) {
-		AdminId = adminId;
+		this.adminId = adminId;
 	}
 
 	public String getAdminName() {
-		return AdminName;
+		return adminName;
 	}
 
 	public void setAdminName(String adminName) {
-		AdminName = adminName;
+		this.adminName = adminName;
 	}
 
 	public String getPassword() {
-		return Password;
+		return password;
 	}
 
 	public void setPassword(String password) {
-		Password = password;
+		this.password = password;
 	}
 
 	public long getAadhaarNo() {
-		return AadhaarNo;
+		return aadhaarNo;
 	}
 
 	public void setAadhaarNo(long aadhaarNo) {
-		AadhaarNo = aadhaarNo;
+		this.aadhaarNo = aadhaarNo;
 	}
 
 	public long getPhoneNumber() {
-		return PhoneNumber;
+		return phoneNumber;
 	}
 
 	public void setPhoneNumber(long phoneNumber) {
-		PhoneNumber = phoneNumber;
+		this.phoneNumber = phoneNumber;
 	}
 
 	public String getLoginName() {
-		return LoginName;
+		return loginName;
 	}
 
 	public void setLoginName(String loginName) {
-		LoginName = loginName;
+		this.loginName = loginName;
 	}
 
 	@Override
 	public String toString() {
-		return "WalletAdmin [AdminId=" + AdminId + ", AdminName=" + AdminName + ", Password=" + Password
-				+ ", AadhaarNo=" + AadhaarNo + ", PhoneNumber=" + PhoneNumber + ", LoginName=" + LoginName + "]";
+		return "WalletAdmin [adminId=" + adminId + ", adminName=" + adminName + ", password=" + password
+				+ ", aadhaarNo=" + aadhaarNo + ", phoneNumber=" + phoneNumber + ", loginName=" + loginName + "]";
 	}
-	
-	
+
+
 	
 }

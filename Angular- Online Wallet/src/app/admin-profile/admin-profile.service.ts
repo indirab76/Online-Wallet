@@ -12,6 +12,7 @@ export class AdminProfileService {
   private deleteUrl = "http://localhost:9090/admin/deleteAdmin";
   private validLoginUrl = "http://localhost:9090/admin/validLogin";
   private validateUrl = "http://localhost:9090/admin/showRegisteredUsers";
+  private acceptedusersUrl = "http://localhost:9090/admin/showAcceptedUsers";
   private updateStatusUrl = "http://localhost:9090/admin/updateStatus";
   http: any;
   constructor(private httpClient: HttpClient) { }
@@ -39,6 +40,10 @@ export class AdminProfileService {
 
   showRegisteredUsers():Observable<any>{
     return this.httpClient.get(`${this.validateUrl}`)
+  }
+
+  showAcceptedUsers():Observable<any>{
+    return this.httpClient.get(`${this.acceptedusersUrl}`)
   }
 
   updateStatus(id:any,status:String):Observable<any>{

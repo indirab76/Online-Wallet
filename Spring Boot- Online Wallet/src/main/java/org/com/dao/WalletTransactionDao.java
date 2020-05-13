@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface WalletTransactionDao extends JpaRepository <WalletTransaction, Integer>{
 
-	@Query( value = "select * from wallet_transaction where sender_id = :user_id or receiver_id = :user_id", nativeQuery=true)
+	@Query( value = "select * from wallet_transaction where sender_id = :user_id or receiver_id = :user_id order by date_of_transaction desc ", nativeQuery=true)
 	List<WalletTransaction> getTransaction(@Param("user_id") int user_id);
 }

@@ -1,17 +1,6 @@
 <form [formGroup]="registrationForm">
   <div class="container">
 
-    <!-- Successfull registration message -->
-    <div class="row"  *ngIf="showMsg">
-      <div class="col-xs-12">
-        <br>
-        <p class="alert alert-success">
-            <strong>Registration Successfull!  Please Login to your account.</strong> 
-
-        </p>
-      </div>
-    </div>
-
     <!-- Registration page starts -->
     <h1>Register</h1>
     <p>Please fill in this form to create an account.</p>
@@ -123,8 +112,25 @@
    </div>
    
 
-    <button type="submit" class="registerbtn" [disabled]="!registrationForm.valid" (click)="onSubmit()">Register</button>
+    <button  type="submit" class="registerbtn" data-toggle="modal" data-target="#myModal_create" [disabled]="!registrationForm.valid" (click)="onSubmit()">Register</button>
     
+    <!-- Modal on create-->
+    <div class="modal fade" id="myModal_create" role="dialog" >
+      <div class="modal-dialog">
+      
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" (click)="onClose()">&times;</button>
+            <h4 class="modal-title">Online Wallet</h4>
+          </div>
+          <div class="modal-body">
+            <p>Your account has successfully been registered!!</p>
+          </div>
+        </div>
+        
+      </div>
+    </div>
   </div>
 
   <div class="container signin" *ngIf="!showMsg">

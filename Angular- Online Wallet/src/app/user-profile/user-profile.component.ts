@@ -78,7 +78,7 @@ export class UserProfileComponent implements OnInit {
     (async () => {
       this.service.searchUser(sessionStorage.getItem("userId")).subscribe(
         (data) => {
-          console.log(data);
+         // console.log(data);
           console.log("Wallet status----------" + data.walletAccount.status);
           this.user = data;
         },
@@ -124,6 +124,7 @@ export class UserProfileComponent implements OnInit {
       this.user.walletAccount.status = "registered";
 
     console.log(this.user);
+    (async () => {
     this.service.updateUser(this.user).subscribe(
       (data) => {
         this.showMsg = true;
@@ -131,8 +132,15 @@ export class UserProfileComponent implements OnInit {
       },
       (error) => console.log(error)
     );
+
+    console.log("before delay");
+    await this.delay(1000);
+    console.log("after delay");
+
     this.user = new User();
     this.onCancel();
+
+  })();
   }
 
   onCancel() {

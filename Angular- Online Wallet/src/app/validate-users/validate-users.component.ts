@@ -11,6 +11,7 @@ import { Observable } from "rxjs";
 })
 export class ValidateUsersComponent implements OnInit {
   userlist: Observable<User[]>;
+  acceptedlist: Observable<User[]>;
   user: User = new User();
   action = null;
   accepted = "accepted";
@@ -25,6 +26,8 @@ export class ValidateUsersComponent implements OnInit {
     console.log("reload data");
     this.userlist = this.service.showRegisteredUsers();
     console.log(this.userlist);
+    this.acceptedlist = this.service.showAcceptedUsers();
+    console.log(this.acceptedlist);
   }
 
   reject(id: number) {

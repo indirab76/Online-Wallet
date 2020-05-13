@@ -12,11 +12,15 @@ import { ValidateUsersComponent } from './validate-users/validate-users.componen
 import { MyWalletComponent } from './my-wallet/my-wallet.component';
 import { AddMoneyComponent } from './add-money/add-money.component';
 import { TransactionFormComponent } from './transaction-form/transaction-form.component';
+import { UserLoginComponent } from './login/user-login/user-login.component';
+import { AdminLoginComponent } from './login/admin-login/admin-login.component';
 
 
 const routes: Routes = [
   {path:'',redirectTo:'login',pathMatch:'full'},
   { path: 'login', component: LoginComponent },
+  { path: 'userlogin', component: UserLoginComponent },
+  { path: 'adminlogin', component: AdminLoginComponent },
   { path: 'create', component: CreateAccountComponent },
   { path: 'userprofile', component: UserProfileComponent,canActivate:[UserAuthGuardService] },
   { path: 'mywallet', component: MyWalletComponent,canActivate:[UserAuthGuardService] },

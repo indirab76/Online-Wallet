@@ -31,4 +31,7 @@ public interface WalletUserDao extends JpaRepository<WalletUser, Integer>{
 	@Query( value = "select user_name from wallet_user where user_id = (select user_id from wallet_account where account_id = :account_id) ", nativeQuery=true)
 	Optional<String> getAccountUserId(@Param("account_id") Integer account_id);
 	
+	@Query( value = "select * from wallet_user where user_id in (select user_id from wallet_account where status='accepted') order by user_id desc", nativeQuery=true)
+	List<WalletUser> getAcceptedAccounts();
+	
 }

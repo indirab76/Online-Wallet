@@ -1,69 +1,178 @@
-<div class="container"  style="margin-left: 0px;">
-
-    <h1>Add Money To Wallet</h1>
-    <hr>
-    <div class="jumbotron text-center" *ngIf="accountStatus == 'registered' || accountStatus == 'rejected'">
-        <p>Sorry you would not be able to access this. Your account has not been validated.</p>
-        <h1>Please Come Again Later!!</h1>
-      </div>
-    <div class="row" *ngIf="accountStatus == 'accepted'">
+<div class="container" style="margin-left: 0px;">
+  <h1>Add Money To Wallet</h1>
+  <hr />
+  <div
+    class="jumbotron text-center"
+    *ngIf="accountStatus == 'registered' || accountStatus == 'rejected'"
+  >
+    <p>
+      Sorry you would not be able to access this. Your account has not been
+      validated.
+    </p>
+    <h1>Please Come Again Later!!</h1>
+  </div>
+  <div class="row" *ngIf="accountStatus == 'accepted'">
+    <!-- Validate Credit Card Details -->
+    <form (ngSubmit)="checkCard()">
+      <div class="container" style="width: 70%;">
+        <label for="cardNo"><b>Enter Credit Card No.</b></label>
+        <input
+          type="text"
+          placeholder="Credit Card No. XXXX"
+          name="cardNo"
+          (ngModelChange)="onChangeCard($event)"
+          id="cardNo"
+          required
+          minlength="4"
+          required
+          maxlength="6"
+          class="form-control"
+          required
+          [(ngModel)]="cardsearch.cardNo"
+          required
+          digitOnly
+        />
+       <br>
+        <div row *ngIf="!isValidCard">
+          <p class="alert alert-danger">
+            <strong
+              >Card No. cannot be null or negative!<br />Please enter valid Card
+              No.</strong
+            >
+          </p>
+        </div>
        
-        <!-- Validate Credit Card Details -->
-        <form (ngSubmit)="checkCard()">
+       <span>
+        <div class="container" style="width: 49%; display: inline-block;">
+          <label for="expiryMonth"><b>Enter Expiry Month</b></label>
+          <input
+            type="number"
+            placeholder="Exp. Month MM"
+            name="expiryMonth"
+            (ngModelChange)="onChangeMonth($event)"
+            id="expiryMonth"
+            required
+            minlength="1"
+            required
+            min="1"
+            required
+            max="12"
+            class="form-control"
+            required
+            [(ngModel)]="cardsearch.expiryMonth"
+            required
+            digitOnly
+          />
+        </div>
+       <br>
+        <div row *ngIf="!isValidMonth">
+          <p class="alert alert-danger">
+            <strong
+              >Expiry Month cannot be null or negative!<br />Please enter valid
+              Month</strong
+            >
+          </p>
+        </div>
+        
+        &nbsp;
+        <div class="container" style="width: 49%; display: inline-block;">
+          <label for="expiryYear"><b>Enter Expiry Year</b></label>
+          <input
+            type="number"
+            placeholder="Exp. Yr. YYYY"
+            name="expiryYear"
+            (ngModelChange)="onChangeYear($event)"
+            id="expiryYear"
+            required
+            minlength="4"
+            required
+            maxlength="4"
+            required
+            min="2020"
+            class="form-control"
+            required
+            [(ngModel)]="cardsearch.expiryYear"
+            required
+            digitOnly
+          />
+        </div>
+       <br>
+        <div row *ngIf="!isValidYear">
+          <p class="alert alert-danger">
+            <strong
+              >Expiry Year cannot be null or negative!<br />Please enter valid
+              Year.</strong
+            >
+          </p>
+        </div>
+       </span>
+        <br>
+        <br>
+        <button class="cardCheckerCss" type="submit" [disabled]="!cardStatus">
+          <strong>Proceed with Card No.</strong>
+        </button>
+        <br>
+        <div class="row" *ngIf="!isCardCheck">
+          <p class="alert alert-danger">
+            <strong>Sorry!</strong><br />Entered Credit Card does not exist <br />Please try again with another one.
+          </p>
+        </div>
+      </div>
 
-            <div class="container" style="width: 70%;">
+      <div [hidden]="!amountStatus" class="container" style="width: 70%;">
+        <label for="amount"><b>Amount To Be Enter</b></label>
+        <input
+          type="text"
+          placeholder="Enter Amount"
+          name="amount"
+          id="amount"
+          (ngModelChange)="onChangeAmount($event)"
+          required
+          min="1"
+          required
+          minlength="1"
+          required
+          maxlength="6"
+          class="form-control"
+          required
+          [(ngModel)]="cardsearch.amount"
+          required
+          digitOnly
+        />
+       <br>
+        <div *ngIf="!isValidAmount">
+          <p class="alert alert-danger">
+            <strong
+              >Amount cannot be null or negative! Please enter valid
+              amount</strong
+            >
+          </p>
+        </div>
 
-                <label for="cardNo"><b>Enter Credit Card No.</b></label>
-                <input type="text" placeholder="Credit Card No. XXXX" name="cardNo" (ngModelChange)="onChangeCard($event)"
-                    id="cardNo" required minlength="4" required maxlength="6" class="form-control" required
-                    [(ngModel)]="cardsearch.cardNo" required digitOnly>
+        <br>
 
-                <div row *ngIf="!isValidCard">
-                    <div class="col-xs-12" style="color:red"></div>
-                    <p class="alert alert-danger"><strong>Card No. may be null or negative!<br>Please enter valid Card No.</strong></p>
-                </div>
-            <br>
-            <button class="cardCheckerCss" type="submit" [disabled]="!cardStatus"><strong>Proceed with Card No.</strong> </button>
-           
-            <div class="row" *ngIf="!isCardCheck">
-                <div class="col-xs-12">
-                    <br>
-                    <p class="alert alert-danger">
-                        <strong>Sorry!</strong><br>Entered Card No is not found in database.<br>Please try again with another one.
+        <button
+          class="addMoneyCss"
+          [disabled]="!isAmountProceed"
+          (click)="onAdd()"
+        >
+          <strong>Add Money to Wallet</strong>
+        </button>
+    <br>
+        <div class="row" *ngIf="!isAddDone">
+          <p class="alert alert-success">
+            <strong>Congratulation!</strong><br />Balance is successfully added
+            to your account.
+          </p>
+        </div>
 
-                    </p>
-                </div>
-            </div>
-
-            </div>
-
-            <!-- Add amount to wallet -->
-            <div [hidden]="!amountStatus" class="container" style="width: 70%;">
-
-                <label for="amount"><b>Amount To Be Enter</b></label>
-                <input type="text" placeholder="Enter Amount" name="amount" id="amount"
-                    (ngModelChange)="onChangeAmount($event)" required min="1" required minlength="1" required
-                    maxlength="6" class="form-control" required [(ngModel)]="cardsearch.amount" required digitOnly>
-
-                <div *ngIf="!isValidAmount">
-                    <div class="col-xs-12" style="color:red">
-                        <p class="alert alert-danger"><strong>Amount may be null or negative! Please enter valid amount</strong></p>
-                    </div>
-                </div>
-
-                <br>
-
-                <button class="addMoneyCss"  [disabled]="!isAmountProceed" (click)="onAdd()"><strong>Add Money to Wallet</strong></button>
-
-                <div *ngIf = "!isAddDone">
-                    <p class="alert alert-success"> <strong>Congratulation!</strong>Balance is successfully added to your account</p>
-                </div>
-
-                <div *ngIf = "!isNotAdd">
-                    <p class="alert alert-danger"> <strong>Oops!</strong>Balance could not be add to account due to insufficent balance in your card.</p>
-                </div>
-               
-            </div>
-    </form>  
-</div>
+        <div class="row" *ngIf="!isNotAdd">
+          <p class="alert alert-danger">
+            <strong>Oops!</strong><br />Balance could not be add to account due
+            to insufficent balance in your card.
+          </p>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>

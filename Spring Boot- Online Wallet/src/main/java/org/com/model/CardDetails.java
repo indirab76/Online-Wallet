@@ -29,14 +29,7 @@ public class CardDetails {
 	@Column(name = "amountAvailable")
 	private double amountAvailable;
 	
-	@OneToOne(cascade = CascadeType.ALL)
 	
-	@Override
-	public String toString() {
-		return "CardDetails [CardNo=" + CardNo + ", ExpiryMonth=" + ExpiryMonth + "/ExpiryYear=" + ExpiryYear
-				+ ", amountAvailable=" + amountAvailable + "]";
-	}
-
 	public int getCardNo() {
 		return CardNo;
 	}
@@ -69,7 +62,11 @@ public class CardDetails {
 		this.amountAvailable = amountAvailable;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "CardDetails [CardNo=" + CardNo + ", ExpiryMonth=" + ExpiryMonth + "/ExpiryYear=" + ExpiryYear
+				+ ", amountAvailable=" + amountAvailable + "]";
+	}
 	
 }
 

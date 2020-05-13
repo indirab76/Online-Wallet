@@ -1,5 +1,6 @@
 package org.com.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,7 +34,7 @@ public class WalletCreationController {
 	@Autowired
 	private WalletCreationService creationService;
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(OnlineWalletSystemApplication.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(WalletCreationController.class);
 
 	//Add User
 	@PostMapping("/addUser")
@@ -161,7 +162,21 @@ public class WalletCreationController {
 	//Get All Users
 	@GetMapping("/getAllUsers")
 	public List<WalletUser> getAllUsers() {
-		return creationService.showAllUsers();
+		List<WalletUser> user = new ArrayList<WalletUser>();
+
+		try {
+			user = creationService.showAllUsers();
+
+			if (user == null)
+				throw new RecordNotFoundException("Record Not Found");
+
+		} catch (Exception e) {
+
+			LOGGER.info(e.getMessage(), HttpStatus.NOT_FOUND);
+
+		}
+		return user;
+		
 	}
 
 }

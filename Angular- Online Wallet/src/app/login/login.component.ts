@@ -8,8 +8,17 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+  constructor(private router:Router){
+
+  }
   ngOnInit(): void {
     
   }
- 
+  onAdminLogin(){
+  this.router.navigate(['/adminlogin'])
+  }
+  onUserLogin(){
+    this.router.navigate(['/userlogin'])
+    }
 }

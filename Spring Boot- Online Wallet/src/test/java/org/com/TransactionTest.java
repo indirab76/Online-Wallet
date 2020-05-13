@@ -6,6 +6,9 @@ import org.com.model.WalletUser;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
@@ -19,7 +22,9 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootTest
 public class TransactionTest  {
-	RestTemplate rst;
+RestTemplate rst;
+	
+	static Logger logger = LoggerFactory.getLogger(AdminApplicationTests.class);
 
 	@BeforeEach
 	public void setup() { 
@@ -28,9 +33,10 @@ public class TransactionTest  {
 	
 	
 	@Test
-	public void searchName() {
-		WalletUser user = rst.getForObject("http://localhost:9090/transaction/SearchByName/{sam}", WalletUser.class);
+	public void searchNameOrPhone() {
+		WalletUser user = rst.getForObject("http://localhost:9090/transaction/SearchByName/{sam}/{1}", WalletUser.class);
 		Assertions.assertNotNull(user);
+		logger.info("search by name or phone no. works");
 	}
 
 	@Test
@@ -42,7 +48,15 @@ public class TransactionTest  {
 		trans.setDateOfTransaction(LocalDateTime.MAX.now());
 		ResponseEntity<?> trans2 = rst.postForEntity("http://localhost:9090/transaction/addTransaction", trans, WalletTransaction.class);
 		Assertions.assertNotNull(trans2);
+		logger.info("add transaction works");
 		//Assertions.assetEquals(HttpStatus.OK, ResponseEntity.status(HttpStatus.OK));
+	}
+	
+	@Test
+	public void userById() {
+		WalletUser user = rst.getForObject("http://localhost:9090/transaction/getWalletUser/1", WalletUser.class);
+	    Assertions.assertNotNull(user);
+	    logger.info("search user works by id");
 	}
 
 }

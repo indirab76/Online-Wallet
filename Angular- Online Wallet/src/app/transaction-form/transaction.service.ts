@@ -8,7 +8,7 @@ import { Transaction } from '../my-wallet/transaction';
 })
 export class TransactionService {
 
-  private baseUrl = "http://localhost:9090/transaction/SearchByName";
+  private baseUrl = "http://localhost:9090/transaction/SearchByNameOrPhone";
   private baseUrl1 = "http://localhost:9090/transaction/allUser";
   private baseUrl2 = "http://localhost:9090/transaction/getBalance";
   private baseUrl3 = "http://localhost:9090/transaction/addTransaction";

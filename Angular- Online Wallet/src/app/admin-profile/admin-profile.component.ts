@@ -86,16 +86,23 @@ export class AdminProfileComponent implements OnInit {
     this.admin.password = this.password.value;
     this.admin.phoneNumber = this.phoneNumber.value;
     this.admin.adminName = this.adminName.value;
-    console.log(this.admin)
+
+    (async () => { 
     this.service.updateAdmin(this.admin).subscribe(
       data=>{
         this.showMsg=true
         console.log(data+" -------- "+  this.showMsg)},
         error=>console.log(error)   
     );
+
+    console.log('before delay')
+      await this.delay(1000);
+      console.log('after delay')
+
       this.admin=new Admin();
       this.onCancel();
-      
+    }
+      )();
   }
   onCancel(){
     this.onReloadData();

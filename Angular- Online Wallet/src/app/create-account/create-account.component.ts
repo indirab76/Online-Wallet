@@ -74,6 +74,7 @@ export class CreateAccountComponent implements OnInit {
         
     });
       this.user=new User();
+      
   }
   else{
 
@@ -95,7 +96,9 @@ export class CreateAccountComponent implements OnInit {
   }
       
   }
-
+  onClose(){
+    this.registrationForm.reset();
+  }
   onSignin(){
     this.router.navigate(['/login']);
   }

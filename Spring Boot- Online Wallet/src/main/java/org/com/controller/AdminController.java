@@ -1,5 +1,6 @@
 package org.com.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.com.OnlineWalletSystemApplication;
@@ -31,7 +32,7 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(OnlineWalletSystemApplication.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(AdminController.class);
 
 	//Add Admin
 	@PostMapping("/addAdmin")
@@ -160,6 +161,39 @@ public class AdminController {
 	//Show All Registered Users
 	@RequestMapping("/showRegisteredUsers")
 	public List<WalletUser> showRegisteredUsers() {
-		return adminService.showRegisteredUsers();
+		
+		List<WalletUser> user = new ArrayList<WalletUser>();
+		try {
+			user = adminService.showRegisteredUsers();
+
+			if (user == null)
+				throw new RecordNotFoundException("Record Not Found");
+
+		} catch (Exception e) {
+
+			LOGGER.info(e.getMessage(), HttpStatus.NOT_FOUND);
+
+		}
+		return user;
 	}
+	
+	//Show All Accepted Users
+		@RequestMapping("/showAcceptedUsers")
+		public List<WalletUser> showAcceptedUsers() {
+			
+			List<WalletUser> user = new ArrayList<WalletUser>();
+			try {
+				user =  adminService.showAcceptedUsers();
+
+				if (user == null)
+					throw new RecordNotFoundException("Record Not Found");
+
+			} catch (Exception e) {
+
+				LOGGER.info(e.getMessage(), HttpStatus.NOT_FOUND);
+
+			}
+			return user;
+
+		}
 }
