@@ -135,7 +135,7 @@ public class AddMoneyWallet_Controller {
 	}
 
 	// Show All Card Details
-	@RequestMapping("/showAll")
+	@RequestMapping("/showAllCards")
 	public List<CardDetails> show() {
 
 		cardDetailsDao.findAll().forEach(System.out::println);

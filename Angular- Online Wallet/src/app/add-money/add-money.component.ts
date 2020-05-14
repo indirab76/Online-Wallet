@@ -53,17 +53,6 @@ export class AddMoneyComponent implements OnInit {
     this.service.cardSearch(this.cardsearch.cardNo).subscribe(
       (data) => {
         if (data != null) {
-          // this.cardsearch = data;
-
-          console.log("Card Details ::-- ");
-
-          console.log(data.cardNo);
-          console.log(data.amount);
-          console.log(data.expiryMonth);
-          console.log(data.expiryYear);
-          console.log("if else condi.");
-
-          //........//
           if (
             data.expiryMonth == this.cardsearch.expiryMonth &&
             data.expiryYear == this.cardsearch.expiryYear
@@ -76,7 +65,6 @@ export class AddMoneyComponent implements OnInit {
 
             this.isNotAdd = true;
 
-            console.log("month and year checking done ");
           }
 
           //........//
@@ -94,19 +82,8 @@ export class AddMoneyComponent implements OnInit {
 
             this.isNotAdd = true;
 
-            console.log("month and year checking not getting done ");
           }
 
-          console.log(data);
-
-          //   this.isCardCheck = true;
-
-          //   this.amountStatus = true;
-
-          //   this.isAddDone = true;
-          // this.isNotAdd = true;
-
-          console.log("data is comming");
         }
 
         if (data == null) {
@@ -121,10 +98,7 @@ export class AddMoneyComponent implements OnInit {
           this.isAddDone = true;
           this.isNotAdd = true;
 
-          console.log(" data null is comming ");
         }
-
-        //  alertService.success('Card found!');
       },
       (error) => {
         this.cardStatus = false;
@@ -152,28 +126,22 @@ export class AddMoneyComponent implements OnInit {
       )
       .subscribe(
         (data) => {
-          console.log(data);
 
           if (data != null) {
             this.isAddDone = false;
             this.isNotAdd = true;
-            console.log(" balance is going on ");
-            console.log(data);
           }
 
           if (data == null) {
             this.isAddDone = true;
             this.isNotAdd = false;
             console.log(" balance is not going on ");
-            console.log(data);
           }
         },
 
         (error) => {
           this.isAddDone = true;
           this.isNotAdd = false;
-          console.log(" balance is not going on with error coming ");
-          console.log(error);
         }
       );
   }
@@ -187,7 +155,6 @@ export class AddMoneyComponent implements OnInit {
   }
 
   public onChangeCard(event: any): void {
-    console.log(event);
 
     if (event == null) {
       this.isEmpty = false;
@@ -206,7 +173,6 @@ export class AddMoneyComponent implements OnInit {
   }
 
   public onChangeAmount(event: any): void {
-    console.log(event);
 
     if (event == null) {
       this.isAmountEmpty = false;
@@ -225,7 +191,6 @@ export class AddMoneyComponent implements OnInit {
 
   //........//
   public onChangeMonth(event: any): void {
-    console.log(event);
 
     if (event == null || event.length == 0) {
       this.cardStatus = false;

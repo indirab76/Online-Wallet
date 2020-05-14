@@ -34,7 +34,7 @@ export class AdminProfileService {
   }
 
   validLogin(loginName:String, password:String):Observable<any> {
-    console.log("validLogin called")
+   
    return this.httpClient.get(`${this.validLoginUrl}/${loginName}/${password}`)
   }
 

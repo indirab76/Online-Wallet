@@ -20,7 +20,6 @@ export class AddMoneyService {
 
 
   cardSearch(cardNo: Number): Observable<CardDetails> {
-console.log("card is searching")
     return this.http.get<CardDetails>(`${this.baseUrl}/${cardNo}`);
   }
 
@@ -30,8 +29,6 @@ console.log("card is searching")
   }
 
   addMoneyToWallet(userId :any , amount:Number , cardNo:Number): Observable<any> {
-
-    console.log("adding money to wallet")
    return this.http.put(`${this.baseUrl_2}/${userId}/${amount}/${cardNo}`,{responseType: 'any'});
 
   }

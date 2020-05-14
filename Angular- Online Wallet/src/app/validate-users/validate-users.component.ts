@@ -23,24 +23,24 @@ export class ValidateUsersComponent implements OnInit {
     this.reloadData();
   }
   reloadData() {
-    console.log("reload data");
+   // console.log("reload data");
     this.userlist = this.service.showRegisteredUsers();
-    console.log(this.userlist);
+   // console.log(this.userlist);
     this.acceptedlist = this.service.showAcceptedUsers();
-    console.log(this.acceptedlist);
+  //  console.log(this.acceptedlist);
   }
 
   reject(id: number) {
     (async () => {
       this.service.updateStatus(id, this.rejected).subscribe(
         (data) => {
-          console.log(data);
+        //  console.log(data);
         },
         (error) => console.log(error)
       );
-      console.log("before delay");
+    //  console.log("before delay");
       await this.delay(500);
-      console.log("after delay");
+      //console.log("after delay");
       this.reloadData();
     })();
   }
@@ -49,13 +49,13 @@ export class ValidateUsersComponent implements OnInit {
     (async () => {
       this.service.updateStatus(id, this.accepted).subscribe(
         (data) => {
-          console.log(data);
+        //  console.log(data);
         },
         (error) => console.log(error)
       );
-      console.log("before delay");
+     // console.log("before delay");
       await this.delay(500);
-      console.log("after delay");
+     // console.log("after delay");
       this.reloadData();
     })();
   }
@@ -63,7 +63,7 @@ export class ValidateUsersComponent implements OnInit {
   clear(id: number) {
     this.service.updateStatus(id, this.registered).subscribe(
       (data) => {
-        console.log(data);
+       // console.log(data);
       },
       (error) => console.log(error)
     );

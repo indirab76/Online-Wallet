@@ -78,16 +78,12 @@ export class UserProfileComponent implements OnInit {
     (async () => {
       this.service.searchUser(sessionStorage.getItem("userId")).subscribe(
         (data) => {
-         // console.log(data);
-          console.log("Wallet status----------" + data.walletAccount.status);
           this.user = data;
         },
         (error) => console.log(error)
       );
 
-      console.log("before delay");
       await this.delay(1000);
-      console.log("after delay");
 
       console.log("user data------" + this.user);
       this.updateForm.get("loginName").setValue(this.user.loginName);
@@ -128,7 +124,6 @@ export class UserProfileComponent implements OnInit {
     this.service.updateUser(this.user).subscribe(
       (data) => {
         this.showMsg = true;
-        console.log(data + " -------- " + this.showMsg);
       },
       (error) => console.log(error)
     );
@@ -167,13 +162,10 @@ export class UserProfileComponent implements OnInit {
         .subscribe(
           (data) => {
             this.deleteMsg = data;
-            console.log(data);
           },
           (error) => console.log(error)
         );
-      console.log("before delay");
       await this.delay(1000);
-      console.log("after delay");
       console.log(this.deleteMsg);
       if (this.deleteMsg == "user removed") {
         console.log("logout should be called");

@@ -69,7 +69,6 @@ export class CreateAccountComponent implements OnInit {
     this.userservice.addUser(this.user).subscribe(
       data=>{
         this.showMsg=true
-        console.log(data+" -------- "+  this.showMsg)
         ,error=>console.log(error)
         
     });
@@ -88,7 +87,6 @@ export class CreateAccountComponent implements OnInit {
     this.adminservice.addAdmin(this.admin).subscribe(
       data=>{
         this.showMsg=true
-        console.log(data+" -------- "+  this.showMsg)
         ,error=>console.log(error)
         
     });

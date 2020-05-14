@@ -53,17 +53,14 @@ export class AdminProfileComponent implements OnInit {
     (async () => { 
     this.service.searchAdmin(sessionStorage.getItem('adminId')).subscribe(
       data=>{
-       console.log(data)
+ 
        this.admin=data;
       },
       error=>console.log(error)
     );
 
-    console.log('before delay')
       await this.delay(1000);
-      console.log('after delay')
 
-    console.log("user data------"+this.admin)
     this.updateForm.get('loginName').setValue(this.admin.loginName)
     this.updateForm.get('adminName').setValue(this.admin.adminName)
     this.updateForm.get('password').setValue(this.admin.password)
@@ -91,14 +88,11 @@ export class AdminProfileComponent implements OnInit {
     this.service.updateAdmin(this.admin).subscribe(
       data=>{
         this.showMsg=true
-        console.log(data+" -------- "+  this.showMsg)},
         error=>console.log(error)   
-    );
+      });
 
-    console.log('before delay')
       await this.delay(1000);
-      console.log('after delay')
-
+    
       this.admin=new Admin();
       this.onCancel();
     }
@@ -121,16 +115,14 @@ export class AdminProfileComponent implements OnInit {
       this.service.deleteAdmin(sessionStorage.getItem('adminId')).subscribe(
         data=>{
           this.deleteMsg = data;
-           console.log(data);
         },
         error=>console.log(error)
      );
-      console.log('before delay')
+      
       await this.delay(1000);
-      console.log('after delay')
-      console.log(this.deleteMsg)
+  
       if(this.deleteMsg == "admin removed"){
-        console.log("logout should be called")
+
         this.deleteStatus=true
         
         }
