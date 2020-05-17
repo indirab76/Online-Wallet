@@ -22,52 +22,40 @@ export class ValidateUsersComponent implements OnInit {
   ngOnInit(): void {
     this.reloadData();
   }
+  /** Reloads Registered UserList and Accepted UserList */
   reloadData() {
-   // console.log("reload data");
+  
     this.userlist = this.service.showRegisteredUsers();
-   // console.log(this.userlist);
     this.acceptedlist = this.service.showAcceptedUsers();
-  //  console.log(this.acceptedlist);
   }
 
+  /** Updates rejected status for user account */
   reject(id: number) {
     (async () => {
       this.service.updateStatus(id, this.rejected).subscribe(
-        (data) => {
-        //  console.log(data);
-        },
+        (data) => {},
         (error) => console.log(error)
       );
-    //  console.log("before delay");
+   
       await this.delay(500);
-      //console.log("after delay");
+     
       this.reloadData();
     })();
   }
-
+/** Reload s accepted status for user account */
   accept(id: number) {
     (async () => {
       this.service.updateStatus(id, this.accepted).subscribe(
-        (data) => {
-        //  console.log(data);
-        },
+        (data) => {},
         (error) => console.log(error)
       );
-     // console.log("before delay");
+     
       await this.delay(500);
-     // console.log("after delay");
+    
       this.reloadData();
     })();
   }
 
-  clear(id: number) {
-    this.service.updateStatus(id, this.registered).subscribe(
-      (data) => {
-       // console.log(data);
-      },
-      (error) => console.log(error)
-    );
-  }
   delay(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }

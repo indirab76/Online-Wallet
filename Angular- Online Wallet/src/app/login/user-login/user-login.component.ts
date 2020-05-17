@@ -13,8 +13,10 @@ export class UserLoginComponent implements OnInit {
   loginForm: FormGroup;
   loginName:FormControl;
   password:FormControl;
-  validLogin:boolean = true
+  validLogin:Boolean = true
+  submitCalled:Boolean=false;
 
+  /** Initializing FormGroup and FormControls  */
   constructor(builder:FormBuilder, private router:Router, private authenticationService:UserAuthenticationService) { 
     this.loginName=new FormControl("",[Validators.required]);
     this.password=new FormControl("",[Validators.required]);
@@ -26,17 +28,15 @@ export class UserLoginComponent implements OnInit {
 
   ngOnInit(): void {
   }
-   
+   /**Validated User loginName and password. If valid will route to User Profile page. */
   checkLogin() {
     
     (async () => { 
       this.authenticationService.authenticate(this.loginName.value, this.password.value);
-      console.log('before delay')
+      
       await this.delay(1000);
-      console.log('after delay')
-      console.log('userId befor route------'+sessionStorage.getItem('userId'));
-      if (this.authenticationService.isUserLoggedIn()){
-       
+     
+      if (this.authenticationService.isUserLoggedIn()){  
         this.router.navigate(['/userprofile'])
       } else{
         this.validLogin = false

@@ -19,7 +19,7 @@
         [formControl]="loginName"
         class="form-control">
 
-        <div *ngIf = "!(loginName.valid||loginName.untouched)">
+        <div *ngIf = "loginName.invalid && ( loginName.dirty || loginName.touched) ">
             <div *ngIf = "loginName.hasError('required')" style="color:red">
                 <p class="alert alert-danger">Login Name is empty!</p>
             </div>
@@ -36,7 +36,7 @@
         [formControl]="password"
         class="form-control">
 
-        <div *ngIf = "!(password.valid||password.untouched)">
+        <div *ngIf = "password.invalid && ( password.dirty || password.touched)">
             <div *ngIf = "password.hasError('required')" style="color:red">
                 <p class="alert alert-danger"> Password is empty!</p>
             </div>

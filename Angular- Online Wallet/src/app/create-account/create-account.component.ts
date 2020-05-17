@@ -26,6 +26,7 @@ export class CreateAccountComponent implements OnInit {
   submitted=false;
   showMsg: boolean = false;
   
+   /** Initializing FormControls and FormGroup */
   constructor(builder:FormBuilder, private userservice:UserProfileService,private adminservice:AdminProfileService, private router:Router) {
     this.loginName=new FormControl("",[Validators.required]);
     this.password=new FormControl("",[Validators.required , Validators.minLength(8)]);
@@ -47,19 +48,16 @@ export class CreateAccountComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+ /** Triggered when submit form button is clicked */
   onSubmit(){
-    console.log('on submit called')
     this.submitted=true;
-    
     this.save();
   }
-
+ /**Saves profile details as user or admin according to type selected */
   save(){
-    console.log('save called')
 
-    if(this.accType.value == 'user'){
-
+    if(this.accType.value == 'user')
+    {
       this.user.aadhaarNo = this.aadhaarNo.value;
       this.user.loginName = this.loginName.value;
       this.user.password = this.password.value;
@@ -69,8 +67,7 @@ export class CreateAccountComponent implements OnInit {
     this.userservice.addUser(this.user).subscribe(
       data=>{
         this.showMsg=true
-        ,error=>console.log(error)
-        
+        ,error=>console.log(error)  
     });
       this.user=new User();
       
@@ -83,7 +80,6 @@ export class CreateAccountComponent implements OnInit {
     this.admin.phoneNumber = this.phoneNumber.value;
     this.admin.adminName = this.userName.value;
 
-
     this.adminservice.addAdmin(this.admin).subscribe(
       data=>{
         this.showMsg=true
@@ -94,9 +90,12 @@ export class CreateAccountComponent implements OnInit {
   }
       
   }
+  /**Resets the form on closing of successfull message modal*/
   onClose(){
     this.registrationForm.reset();
+    this.showMsg=false;
   }
+  /*Routes to Login Page on Sign In*/
   onSignin(){
     this.router.navigate(['/login']);
   }

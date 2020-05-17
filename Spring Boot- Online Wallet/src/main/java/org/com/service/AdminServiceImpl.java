@@ -21,7 +21,7 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	WalletAdminDao adminDao;
 
-	// Create Admin function
+	// Create new Admin 
 	public WalletAdmin addAdmin(WalletAdmin walletAdmin) {
 
 		Optional<WalletAdmin> findById = adminDao.findById(walletAdmin.getAdminId());
@@ -33,17 +33,17 @@ public class AdminServiceImpl implements AdminService {
 		return null;
 	}
 
-	// Show All Registered Users Function
+	// Returns All Registered Users 
 	public List<WalletUser> showRegisteredUsers() {
 		return userDao.getRegisteredAccounts();
 	}
 	
-	// Show All Accepted Users Function
+	// Returns All Accepted Users Function
 		public List<WalletUser> showAcceptedUsers() {
 			return userDao.getAcceptedAccounts();
 		}
 
-	// Remove By Id
+	// Remove Admin By Id
 	public String removeAdminById(int aid) {
 
 		Optional<WalletAdmin> findById = adminDao.findById(aid);
@@ -55,7 +55,7 @@ public class AdminServiceImpl implements AdminService {
 
 	}
 
-	// Update Admin Function
+	// Update Admin 
 	public WalletAdmin updateAdmin(WalletAdmin walletAdmin) {
 
 		Optional<WalletAdmin> findById = adminDao.findById(walletAdmin.getAdminId());
@@ -66,7 +66,7 @@ public class AdminServiceImpl implements AdminService {
 		return null;
 	}
 
-	// Show Admin By Id
+	// Return Admin By Id
 	public WalletAdmin showAdminById(int aid) {
 
 		Optional<WalletAdmin> findById = adminDao.findById(aid);
@@ -90,7 +90,7 @@ public class AdminServiceImpl implements AdminService {
 		return 0;
 	}
 
-	// Authenticate Admin Login
+	// Authenticate Admin Login using loginName and password
 	public WalletAdmin validLogin(String loginName, String password) {
 
 		Optional<WalletAdmin> findById = adminDao.validLogin(loginName, password);

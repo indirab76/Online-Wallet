@@ -30,6 +30,7 @@ export class UserProfileComponent implements OnInit {
   loginName: FormControl;
   password: FormControl;
 
+  /** Initialize FormGroup and FormControls and disable the formcontrols if editMode is true*/
   constructor(
     builder: FormBuilder,
     private service: UserProfileService,
@@ -66,14 +67,12 @@ export class UserProfileComponent implements OnInit {
       phoneNumber: this.phoneNumber,
       userName: this.userName,
     });
-
-    console.log(this.editMode);
   }
 
   ngOnInit(): void {
     this.onReloadData();
   }
-  
+  /** Reloads UserProfile data from userId and sets value into form controls */
   onReloadData() {
     (async () => {
       this.service.searchUser(sessionStorage.getItem("userId")).subscribe(
@@ -92,6 +91,7 @@ export class UserProfileComponent implements OnInit {
       this.updateForm.get("aadhaarNo").setValue(this.user.aadhaarNo);
       this.updateForm.get("phoneNumber").setValue(this.user.phoneNumber);
 
+      /** messages for 'registered' and 'rejected' users */
       if (sessionStorage.getItem("userStatus") == "registered")
         this.showStatus = 1;
       else if (sessionStorage.getItem("userStatus") == "rejected")
@@ -100,6 +100,7 @@ export class UserProfileComponent implements OnInit {
     })();
   }
 
+  /** Enables the form controls in edit mode */
   onEdit() {
     this.editMode = true;
     this.updateForm.get("userName").enable();
@@ -109,6 +110,7 @@ export class UserProfileComponent implements OnInit {
     this.updateForm.get("phoneNumber").enable();
   }
 
+  /** Updates UserProfile data */
   onUpdate() {
     this.user.aadhaarNo = this.aadhaarNo.value;
     this.user.loginName = this.loginName.value;
@@ -116,28 +118,26 @@ export class UserProfileComponent implements OnInit {
     this.user.phoneNumber = this.phoneNumber.value;
     this.user.userName = this.userName.value;
 
+    /** Status for a 'rejected' user changes to 'registered' on updation */
     if (sessionStorage.getItem("userStatus") == "rejected")
       this.user.walletAccount.status = "registered";
 
     console.log(this.user);
     (async () => {
-    this.service.updateUser(this.user).subscribe(
-      (data) => {
-        this.showMsg = true;
-      },
-      (error) => console.log(error)
-    );
+      this.service.updateUser(this.user).subscribe(
+        (data) => {
+          this.showMsg = true;
+        },
+        (error) => console.log(error)
+      );
 
-    console.log("before delay");
-    await this.delay(1000);
-    console.log("after delay");
+      await this.delay(1000);
 
-    this.user = new User();
-    this.onCancel();
-
-  })();
+      this.user = new User();
+      this.onCancel();
+    })();
   }
-
+  /** Cancels updation, returns form to it's previous state */
   onCancel() {
     this.onReloadData();
     this.editMode = false;
@@ -147,11 +147,11 @@ export class UserProfileComponent implements OnInit {
     this.updateForm.get("aadhaarNo").disable();
     this.updateForm.get("phoneNumber").disable();
   }
-
+  /** Redirects to logout on clodse of delete modal */
   onClose() {
     this.router.navigate(["/userlogout"]);
   }
-
+  /** Deletes User Account as well as Wallet Account */
   onDelete() {
     (async () => {
       this.service
@@ -165,10 +165,10 @@ export class UserProfileComponent implements OnInit {
           },
           (error) => console.log(error)
         );
+
       await this.delay(1000);
-      console.log(this.deleteMsg);
+
       if (this.deleteMsg == "user removed") {
-        console.log("logout should be called");
         this.deleteStatus = true;
       } else this.deleteStatus = false;
     })();

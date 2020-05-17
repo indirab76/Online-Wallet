@@ -18,7 +18,6 @@ export class UserProfileService {
     return this.httpClient.get(`${this.searchUrl}/${id}`)
   }
   addUser(product: Object): Observable<Object> {
-    
     return this.httpClient.post(`${this.addUrl}/`, product);
   }
 
@@ -31,7 +30,6 @@ export class UserProfileService {
   }
 
   validLogin(loginName:String, password:String):Observable<any> {
-    console.log("validLogin called")
    return this.httpClient.get(`${this.validLoginUrl}/${loginName}/${password}`)
   }
   

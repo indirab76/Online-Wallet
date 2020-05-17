@@ -21,7 +21,6 @@ export class AdminProfileService {
     return this.httpClient.get(`${this.searchUrl}/${id}`)
   }
   addAdmin(product: Object): Observable<Object> {
-    
     return this.httpClient.post(`${this.addUrl}/`, product);
   }
 

@@ -114,7 +114,7 @@
       <div *ngIf="aadhaarNo.hasError('required')">
         <p class="alert alert-danger">Aadhaar Number is empty!</p>
       </div>
-      <div *ngIf="aadhaarNo.hasError('minlength')">
+      <div *ngIf="aadhaarNo.hasError('min') || aadhaarNo.hasError('max')">
         <p class="alert alert-danger">Please enter 12-digit Aadhaar Number!</p>
       </div>
     </div>
@@ -135,7 +135,7 @@
       <div *ngIf="phoneNumber.hasError('required')">
         <p class="alert alert-danger">Phone Number is empty!</p>
       </div>
-      <div *ngIf="phoneNumber.hasError('minlength')">
+      <div *ngIf="phoneNumber.hasError('min') || phoneNumber.hasError('max')">
         <p class="alert alert-danger">Please enter 10-digit Phone Number!</p>
       </div>
     </div>

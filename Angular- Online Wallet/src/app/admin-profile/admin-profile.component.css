@@ -12,10 +12,12 @@ input[type=text], input[type=password], input[type=number] {
   padding: 15px;
   margin: 5px 0 22px 0;
   display: inline-block;
-  border: none;
+  border: 1px solid rgb(218, 218, 218);
+  border-radius: 4px;
   background: #f1f1f1;
 }
 
+/* Input fields on focus styling */
 input[type=text]:focus, input[type=password]:focus {
   background-color: #ddd;
   outline: none;
@@ -39,6 +41,7 @@ hr {
   opacity: 0.9;
 }
 
+/*Add style on hover*/
 .registerbtn:hover {
   opacity:1;
 }

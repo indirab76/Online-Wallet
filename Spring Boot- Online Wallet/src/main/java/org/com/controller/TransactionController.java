@@ -75,7 +75,7 @@ public class TransactionController {
 	}
 		
 
-	@RequestMapping("/SearchByName/{key}/{id}")
+	@RequestMapping("/SearchByNameOrPhone/{key}/{id}")
 	public ResponseEntity<?> searchByNameorPhoneNo(@PathVariable("key") String key, @PathVariable("id") int id) {
 		if(key.isEmpty())
 			key="";

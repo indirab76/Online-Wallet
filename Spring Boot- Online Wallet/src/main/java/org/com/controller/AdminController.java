@@ -34,7 +34,7 @@ public class AdminController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AdminController.class);
 
-	//Add Admin
+	//Create Admin
 	@PostMapping("/addAdmin")
 	@ExceptionHandler(RecordNotFoundException.class)
 	public WalletAdmin addAdmin(@RequestBody WalletAdmin walletAdmin) {
@@ -115,7 +115,7 @@ public class AdminController {
 		return admin;
 	}
 
-	//Validate Admin Login
+	//Returns Admin for given loginName and password
 	@RequestMapping("/validLogin/{loginName}/{password}")
 	@ExceptionHandler(RecordNotFoundException.class)
 	public WalletAdmin validLoginName(@PathVariable("loginName") String loginName,
@@ -136,7 +136,7 @@ public class AdminController {
 		return admin;
 	}
 
-	//Update Admin Status
+	//Update User Account status for the particular user_id
 	@PutMapping("/updateStatus/{id}/{status}")
 	@ExceptionHandler(RecordNotFoundException.class)
 	public int updateStatus(@PathVariable("id") int user_id, @PathVariable("status") String status) {

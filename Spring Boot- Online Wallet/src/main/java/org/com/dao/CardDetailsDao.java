@@ -14,11 +14,12 @@ import org.springframework.stereotype.Repository;
 public interface CardDetailsDao  extends JpaRepository<CardDetails, Integer>
 
 {
-	
+	//Returns card_balance for a card_no
 	@Query(value="select amount_available from Card_Details where card_no = ?1 ", nativeQuery=true)
 	double getAccountBalanceInCard(@Param("card_no") int card_no);
 	
 	
+	//Update card balance after a transaction
 	@Query(value="update card_details c set c.amount_available = ?2 where c.card_no = ?1",nativeQuery = true)
 	@Modifying
 	@Transactional

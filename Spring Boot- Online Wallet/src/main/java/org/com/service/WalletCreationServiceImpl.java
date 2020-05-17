@@ -28,7 +28,7 @@ public class WalletCreationServiceImpl implements WalletCreationService{
 	WalletUser user;
 	WalletAccount account;
 	
-	//Add new User
+	//Create new WalletUser and WalletAccount 
     public WalletUser addUser( WalletUser walletUser) {
 		
 		Optional <WalletUser> findById = userDao.findByAadhaarNo(walletUser.getAadhaarNo());
@@ -46,7 +46,7 @@ public class WalletCreationServiceImpl implements WalletCreationService{
 		return null;
 	}
     
-    //Remove User By Id
+    //Remove WalletUser and WalletAccount by user_id and account_id
    public String removeUserById( int uid, int account_id) {
 		
 		Optional <WalletUser> findUser = userDao.findById(uid);
@@ -60,7 +60,7 @@ public class WalletCreationServiceImpl implements WalletCreationService{
 		
 	}
    
-   //Update User By Id
+   //Update WalletUser By Id
    public WalletUser updateUser( WalletUser walletUser) {
 		
 		Optional <WalletUser> findById = userDao.findById(walletUser.getUserId());
@@ -72,7 +72,7 @@ public class WalletCreationServiceImpl implements WalletCreationService{
 		return null;
 	}
 	
-   //Show User By Id
+   //Show WalletUser By Id
 	public WalletUser showUserById(int uid) {
 		
 		Optional <WalletUser> findById = userDao.findById(uid);
@@ -98,7 +98,8 @@ public class WalletCreationServiceImpl implements WalletCreationService{
 		
 	}
     
-     //Validate login for a user
+     //Validate login for a WalletUser 
+     //Returns WalletUser for given loginName and password 
      public WalletUser validLogin(String loginName, String password) {
  		
  		Optional<WalletUser> findById = userDao.validLogin(loginName, password);
@@ -111,7 +112,7 @@ public class WalletCreationServiceImpl implements WalletCreationService{
  		
  	}
 
-	// Get all users
+	// Get all WalletUsers
 	public List<WalletUser> showAllUsers(){
 		return userDao.findAll();
 	}

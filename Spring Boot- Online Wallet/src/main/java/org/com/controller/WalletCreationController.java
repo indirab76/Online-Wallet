@@ -36,7 +36,7 @@ public class WalletCreationController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(WalletCreationController.class);
 
-	//Add User
+	//Create new User Account
 	@PostMapping("/addUser")
 	@ExceptionHandler(RecordNotFoundException.class)
 	public WalletUser addUser(@RequestBody WalletUser walletUser) {
@@ -57,7 +57,7 @@ public class WalletCreationController {
 
 	}
 
-	//Remove User By Id
+	//Remove UserAccount By userId
 	@DeleteMapping("/deleteUser/{id}/{account_id}")
 	@ExceptionHandler(RecordNotFoundException.class)
 	public String removeUserById(@PathVariable("id") int uid, @PathVariable("account_id") int account_id) {
@@ -77,7 +77,7 @@ public class WalletCreationController {
 		return msg;
 	}
 
-	//Update User
+	//Update UserAccount
 	@PutMapping("/updateUser")
 	@ExceptionHandler(RecordNotFoundException.class)
 	public WalletUser updateUser(@RequestBody WalletUser walletUser) {
@@ -97,7 +97,7 @@ public class WalletCreationController {
 		return user;
 	}
 
-	//Show User By Id
+	//Returns WalletUser by userId
 	@RequestMapping("/showUser/{id}")
 	@ExceptionHandler(RecordNotFoundException.class)
 	public WalletUser showUserById(@PathVariable("id") int uid) {
@@ -117,7 +117,7 @@ public class WalletCreationController {
 		return user;
 	}
 
-	//Check if entered Login Name is already present in database
+	//Check if entered Login Name is already present in database and returns a boolean
 	@RequestMapping("/validLoginName/{loginName}")
 	@ExceptionHandler(RecordNotFoundException.class)
 	public boolean validLoginName(@PathVariable("loginName") String loginName) {
@@ -138,7 +138,7 @@ public class WalletCreationController {
 
 	}
 
-	//Validate User Login
+	//Returns wallet_user for given loginName and password
 	@RequestMapping("/validLogin/{loginName}/{password}")
 	@ExceptionHandler(RecordNotFoundException.class)
 	public WalletUser validLoginName(@PathVariable("loginName") String loginName,
@@ -159,7 +159,7 @@ public class WalletCreationController {
 		return user;
 	}
 
-	//Get All Users
+	//Returns list of all wallet_users
 	@GetMapping("/getAllUsers")
 	public List<WalletUser> getAllUsers() {
 		List<WalletUser> user = new ArrayList<WalletUser>();

@@ -26,6 +26,7 @@ export class AdminProfileComponent implements OnInit {
   loginName:FormControl;
   password:FormControl;
 
+  /** Initializing FormControls and FormGroup */
   constructor(builder:FormBuilder, private service:AdminProfileService,private router:Router) {
     this.loginName=new FormControl({value:'' , disabled:!this.editMode},[Validators.required]);
     this.password=new FormControl({value:'' , disabled: !this.editMode}, [Validators.required , Validators.minLength(8)]);
@@ -40,26 +41,24 @@ export class AdminProfileComponent implements OnInit {
       phoneNumber:this.phoneNumber,
       adminName:this.adminName
     });
-
-    console.log(this.editMode)
   }
   
-
   ngOnInit(): void {
     this.onReloadData();
   }
-  
+
+  /** Retreiving Admin Profile by AdminId */
   onReloadData(){
     (async () => { 
     this.service.searchAdmin(sessionStorage.getItem('adminId')).subscribe(
       data=>{
- 
        this.admin=data;
+
       },
       error=>console.log(error)
     );
 
-      await this.delay(1000);
+    await this.delay(1000);
 
     this.updateForm.get('loginName').setValue(this.admin.loginName)
     this.updateForm.get('adminName').setValue(this.admin.adminName)
@@ -69,6 +68,8 @@ export class AdminProfileComponent implements OnInit {
     }
     )();
   }
+
+  /** Enabling all input fields when edit button is clicked */
   onEdit(){
     this.editMode=true;
     this.updateForm.get('adminName').enable();
@@ -77,13 +78,15 @@ export class AdminProfileComponent implements OnInit {
     this.updateForm.get('aadhaarNo').enable();
     this.updateForm.get('phoneNumber').enable();
   }
+
+  /**Sending Admin Profile data for updation and reseting the form */
   onUpdate(){
     this.admin.aadhaarNo = this.aadhaarNo.value;
     this.admin.loginName = this.loginName.value;
     this.admin.password = this.password.value;
     this.admin.phoneNumber = this.phoneNumber.value;
     this.admin.adminName = this.adminName.value;
-
+  
     (async () => { 
     this.service.updateAdmin(this.admin).subscribe(
       data=>{
@@ -98,6 +101,8 @@ export class AdminProfileComponent implements OnInit {
     }
       )();
   }
+
+  /**Resting the form */
   onCancel(){
     this.onReloadData();
     this.editMode=false;
@@ -107,9 +112,13 @@ export class AdminProfileComponent implements OnInit {
     this.updateForm.get('aadhaarNo').disable();
     this.updateForm.get('phoneNumber').disable();
   }
+
+  /** Redirect to logout when delete modal is closed */
   onClose(){
     this.router.navigate(['/logout'])
   }
+
+  /** Delete Admin Account */
   onDelete(){
     (async () => { 
       this.service.deleteAdmin(sessionStorage.getItem('adminId')).subscribe(
@@ -122,9 +131,7 @@ export class AdminProfileComponent implements OnInit {
       await this.delay(1000);
   
       if(this.deleteMsg == "admin removed"){
-
         this.deleteStatus=true
-        
         }
         else
         this.deleteStatus=false
